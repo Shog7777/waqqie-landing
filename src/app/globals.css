@@ -1,0 +1,205 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================================================================
+   وقّع | WAQQIE — Brand tokens
+   المصدر: دليل الهوية البصرية v1.0 (2026) — الفصول 03 و04 و11
+   قاعدة 60–30–10 : Deep Ink Teal / Card Teal / Warm Gold
+   ========================================================================= */
+:root {
+  /* --- ألوان الهوية الخام --- */
+  --wq-ink: #0f4c5c; /* Deep Ink Teal   — الخلفية الأساسية 55% */
+  --wq-surface: #123f4c; /* سطح وسيط */
+  --wq-card: #163e48; /* Card Teal       — البطاقات 25% */
+  --wq-abyss: #081b21; /* حبر عميق للتذييل والترويسة */
+  --wq-gold: #d4a24e; /* Warm Gold       — التمييز 12% */
+  --wq-ivory: #faf8f4; /* Warm Ivory      — النص (لا أبيض نقي) */
+  --wq-whatsapp: #25d366; /* وظيفي فقط: زر واتساب 5% */
+  --wq-error: #e2574c; /* حالة الخطأ 3% */
+
+  /* --- تعيين رموز shadcn على الهوية --- */
+  --background: var(--wq-ink);
+  --foreground: var(--wq-ivory);
+  --card: var(--wq-card);
+  --card-foreground: var(--wq-ivory);
+  --popover: var(--wq-card);
+  --popover-foreground: var(--wq-ivory);
+  --primary: var(--wq-gold);
+  --primary-foreground: var(--wq-ink);
+  --secondary: var(--wq-surface);
+  --secondary-foreground: var(--wq-ivory);
+  --muted: color-mix(in oklab, var(--wq-ivory) 6%, transparent);
+  --muted-foreground: color-mix(in oklab, var(--wq-ivory) 62%, transparent);
+  --accent: color-mix(in oklab, var(--wq-gold) 12%, transparent);
+  --accent-foreground: var(--wq-gold);
+  --destructive: var(--wq-error);
+  --border: color-mix(in oklab, var(--wq-ivory) 10%, transparent);
+  --input: color-mix(in oklab, var(--wq-ivory) 14%, transparent);
+  --ring: var(--wq-gold);
+
+  /* زوايا 8–12px حسب قواعد الاستخدام */
+  --radius: 0.625rem;
+}
+
+/* الهوية داكنة افتراضًا — النسخة الفاتحة غير معتمدة للواجهات (قاعدة 16/01) */
+.dark {
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ألوان الهوية كأدوات Tailwind: bg-ink, text-gold, border-gold ... */
+  --color-ink: var(--wq-ink);
+  --color-surface: var(--wq-surface);
+  --color-abyss: var(--wq-abyss);
+  --color-gold: var(--wq-gold);
+  --color-ivory: var(--wq-ivory);
+  --color-whatsapp: var(--wq-whatsapp);
+
+  --font-sans: var(--font-plex-arabic);
+  --font-mono: var(--font-jetbrains);
+  --font-heading: var(--font-plex-arabic);
+  --font-calligraphy: var(--font-aref);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-draw: draw 2.2s ease-in-out forwards;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 3.2s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--wq-gold);
+    color: var(--wq-ink);
+  }
+  /* الأرقام اللاتينية والطوابع الزمنية دائمًا LTR داخل نص عربي */
+  .ltr-num {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+}
+
+@layer utilities {
+  /* النمط 01 — شبكة ونقاط (دليل الهوية، الفصل 05) */
+  .pattern-grid {
+    background-image:
+      linear-gradient(var(--wq-gold) 1px, transparent 1px),
+      linear-gradient(90deg, var(--wq-gold) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.05;
+  }
+  /* فاصل ذهبي متدرّج */
+  .gold-divider {
+    background: linear-gradient(
+      to left,
+      transparent,
+      var(--wq-gold),
+      transparent
+    );
+  }
+  .text-gradient-gold {
+    background: linear-gradient(180deg, #f0cf94 0%, var(--wq-gold) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glass {
+    background: color-mix(in oklab, var(--wq-abyss) 72%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .shadow-gold {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--wq-gold) 35%, transparent),
+      0 18px 60px -18px color-mix(in oklab, var(--wq-gold) 45%, transparent);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* احترام تفضيل تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
