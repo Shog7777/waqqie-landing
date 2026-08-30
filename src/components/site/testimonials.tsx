@@ -33,7 +33,7 @@ export function Testimonials() {
                   </span>
                   <span className="flex flex-col leading-tight">
                     <span className="text-sm font-medium text-ivory">{t.name}</span>
-                    <span className="text-xs text-ivory/45">{t.role}</span>
+                    <span className="text-xs text-ivory/62">{t.role}</span>
                   </span>
                 </figcaption>
               </figure>

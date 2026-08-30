@@ -128,7 +128,7 @@ export function Features() {
               />
               <div className="mt-auto pt-6">
                 <div className="flex items-center justify-between rounded-xl border border-ivory/10 bg-abyss/50 px-3 py-2.5">
-                  <span className="font-mono text-[0.62rem] text-ivory/45">UPLOADS</span>
+                  <span className="font-mono text-[0.62rem] text-ivory/65">UPLOADS</span>
                   <span className="font-mono text-sm font-semibold text-gold ltr-num">0</span>
                 </div>
               </div>

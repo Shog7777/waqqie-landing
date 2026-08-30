@@ -21,7 +21,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div className="flex flex-col items-start gap-5">
             <Logo size="lg" className="items-start" />
-            <p className="max-w-xs text-sm leading-[2] text-ivory/50">
+            <p className="max-w-xs text-sm leading-[2] text-ivory/65">
               تطبيق توقيع إلكتروني عربي — امسح، وقّع، وأرسل من جوالك، وكل شيء يبقى على جهازك.
             </p>
             <a
@@ -60,7 +60,7 @@ export function Footer() {
                     <li key={item.label}>
                       <a
                         href={item.href}
-                        className="text-sm text-ivory/55 transition-colors hover:text-ivory"
+                        className="text-sm text-ivory/65 transition-colors hover:text-ivory"
                       >
                         {item.label}
                       </a>
@@ -73,10 +73,10 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-ivory/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[0.7rem] text-ivory/35 ltr-num">
+          <p className="font-mono text-[0.7rem] text-ivory/65 ltr-num">
             © 2026 {site.latin} · {site.domain}
           </p>
-          <p className="text-[0.7rem] text-ivory/35">
+          <p className="text-[0.7rem] text-ivory/65">
             صفحة هبوط تجريبية لأغراض التقييم التصميمي — الشهادات والأرقام المعروضة توضيحية.
           </p>
         </div>

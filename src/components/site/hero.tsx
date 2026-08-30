@@ -55,7 +55,7 @@ export function Hero() {
           <Reveal delay={0.24}>
             <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
               {proofItems.map((p) => (
-                <li key={p.text} className="flex items-center gap-2 text-sm text-ivory/55">
+                <li key={p.text} className="flex items-center gap-2 text-sm text-ivory/70">
                   <p.icon className="size-4 text-gold" />
                   {p.text}
                 </li>

@@ -43,7 +43,7 @@ export function Faq() {
                 <AccordionTrigger className="py-5 text-start text-base font-medium text-ivory hover:text-gold hover:no-underline">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="pb-5 text-sm leading-[2] text-ivory/60">
+                <AccordionContent className="pb-5 text-sm leading-[2] text-ivory/70">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

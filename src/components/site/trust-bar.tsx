@@ -21,7 +21,7 @@ export function TrustBar() {
               <div className="flex flex-col gap-1.5 border-e border-ivory/10 pe-6 last:border-e-0 max-lg:[&:nth-child(2n)]:border-e-0">
                 <dt className="text-xl font-bold text-gold ltr-num sm:text-2xl">{b.value}</dt>
                 <dd className="text-sm font-medium text-ivory">{b.label}</dd>
-                <p className="text-xs leading-relaxed text-ivory/45">{b.hint}</p>
+                <p className="text-xs leading-relaxed text-ivory/65">{b.hint}</p>
               </div>
             </Reveal>
           ))}
@@ -41,7 +41,7 @@ export function TrustBar() {
               {brandWords.map((w) => (
                 <li
                   key={w}
-                  className="flex items-center gap-6 whitespace-nowrap px-6 text-sm text-ivory/40"
+                  className="flex items-center gap-6 whitespace-nowrap px-6 text-sm text-ivory/65"
                 >
                   <span className="size-1 rounded-full bg-gold/60" />
                   {w}

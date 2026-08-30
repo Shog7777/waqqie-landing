@@ -44,7 +44,7 @@ export function HowItWorks() {
                     {step.n}
                   </span>
                   <h3 className="mb-2 text-lg font-semibold text-ivory">{step.title}</h3>
-                  <p className="max-w-xs text-sm leading-relaxed text-ivory/60">{step.body}</p>
+                  <p className="max-w-xs text-sm leading-relaxed text-ivory/70">{step.body}</p>
                 </div>
               </Reveal>
             );

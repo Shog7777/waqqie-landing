@@ -72,7 +72,7 @@ export function Showcase() {
                     </PhoneFrame>
                     <div className="text-center">
                       <h3 className="text-base font-semibold text-ivory">{s.title}</h3>
-                      <p className="mt-1 max-w-[16rem] text-xs leading-relaxed text-ivory/50">
+                      <p className="mt-1 max-w-[16rem] text-xs leading-relaxed text-ivory/65">
                         {s.caption}
                       </p>
                     </div>

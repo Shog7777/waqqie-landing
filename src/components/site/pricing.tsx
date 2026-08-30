@@ -49,7 +49,7 @@ export function Pricing() {
                 >
                   {plan.price}
                 </p>
-                <p className="mt-2 text-xs leading-relaxed text-ivory/45">{plan.note}</p>
+                <p className="mt-2 text-xs leading-relaxed text-ivory/62">{plan.note}</p>
 
                 <span aria-hidden className="gold-divider my-7 h-px w-full opacity-40" />
 
@@ -59,7 +59,7 @@ export function Pricing() {
                       <span
                         className={cn(
                           "mt-0.5 grid size-5 shrink-0 place-items-center rounded-md",
-                          plan.highlighted ? "bg-gold/15 text-gold" : "bg-ivory/8 text-ivory/55",
+                          plan.highlighted ? "bg-gold/15 text-gold" : "bg-ivory/8 text-ivory/70",
                         )}
                       >
                         <Check className="size-3" strokeWidth={3} />
@@ -83,7 +83,7 @@ export function Pricing() {
         </div>
 
         <Reveal delay={0.2}>
-          <p className="mt-8 text-center text-xs text-ivory/40">
+          <p className="mt-8 text-center text-xs text-ivory/65">
             تُدار الاشتراكات والمدفوعات عبر متاجر التطبيقات الرسمية — App Store و Google Play —
             ويمكن الإلغاء في أي وقت من إعدادات حسابك في المتجر.
           </p>
