@@ -4,6 +4,7 @@ import { Aref_Ruqaa, IBM_Plex_Sans_Arabic, JetBrains_Mono } from "next/font/goog
 import { Providers } from "@/components/providers";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { site, ui } from "@/lib/content";
+import { getBaseUrl } from "@/lib/site-url";
 
 import "./globals.css";
 
@@ -38,8 +39,10 @@ const arefRuqaa = Aref_Ruqaa({
   display: "swap",
 });
 
+const baseUrl = getBaseUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(baseUrl),
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s | ${site.name}`,
@@ -57,12 +60,12 @@ export const metadata: Metadata = {
     "السعودية",
   ],
   applicationName: site.name,
-  authors: [{ name: site.name, url: site.url }],
+  authors: [{ name: site.name, url: baseUrl }],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "ar_SA",
-    url: site.url,
+    url: baseUrl,
     siteName: site.name,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,

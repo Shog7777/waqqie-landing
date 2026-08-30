@@ -11,6 +11,7 @@ import { Showcase } from "@/components/site/showcase";
 import { Testimonials } from "@/components/site/testimonials";
 import { TrustBar } from "@/components/site/trust-bar";
 import { faqs, site } from "@/lib/content";
+import { getBaseUrl } from "@/lib/site-url";
 
 /** بيانات منظّمة تساعد محركات البحث على فهم التطبيق وأسئلته. */
 const jsonLd = {
@@ -24,7 +25,7 @@ const jsonLd = {
       operatingSystem: "iOS, Android",
       inLanguage: "ar",
       description: site.description,
-      url: site.url,
+      url: getBaseUrl(),
       offers: {
         "@type": "Offer",
         price: "0",

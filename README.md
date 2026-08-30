@@ -6,7 +6,7 @@
 مبنية بـ **Next.js 16 (App Router) + shadcn/ui + Tailwind CSS v4**، عربية بالكامل واتجاه RTL أصيل، ومشتقّة مباشرة من دليل الهوية البصرية الرسمي v1.0.
 
 **المستودع:** <https://github.com/Shog7777/waqqie-landing>
-**العرض الحيّ:** _(يُضاف رابط Vercel بعد النشر)_
+**العرض الحيّ:** <https://waqqie-landing.vercel.app>
 
 </div>
 
@@ -196,13 +196,12 @@ src/
 
 ## 🚀 النشر
 
-المشروع جاهز للنشر على **Vercel** دون أي إعداد إضافي:
+منشور على **Vercel** بربط المستودع مباشرة — الإعدادات الافتراضية لـ Next.js كافية، ولا متغيّرات بيئة مطلوبة.
 
-```bash
-npx vercel --prod
-```
-
-أو بربط المستودع مباشرة من لوحة Vercel — الإعدادات الافتراضية لـ Next.js كافية.
+الروابط المطلقة (canonical، صورة OG، sitemap) تُشتق وقت البناء من
+`VERCEL_PROJECT_PRODUCTION_URL` عبر [`getBaseUrl`](src/lib/site-url.ts)،
+لأن نطاق العلامة `waqqie.sa` غير مُشغَّل بعد وتثبيته في الميتاداتا كان يجعل
+معاينة المشاركة مكسورة. عند تفعيل النطاق الحقيقي يكفي ضبط `NEXT_PUBLIC_SITE_URL`.
 
 ---
 
