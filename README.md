@@ -6,6 +6,7 @@
 مبنية بـ **Next.js 16 (App Router) + shadcn/ui + Tailwind CSS v4**، عربية بالكامل واتجاه RTL أصيل، ومشتقّة مباشرة من دليل الهوية البصرية الرسمي v1.0.
 
 **المستودع:** <https://github.com/Shog7777/waqqie-landing>
+
 **العرض الحيّ:** <https://waqqie-landing.vercel.app>
 
 </div>

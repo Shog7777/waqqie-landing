@@ -77,15 +77,24 @@ function Carousel({
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "ArrowLeft") {
-        event.preventDefault()
-        scrollPrev()
-      } else if (event.key === "ArrowRight") {
-        event.preventDefault()
-        scrollNext()
-      }
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
+      event.preventDefault()
+
+      // في الاتجاه العربي تسير الشرائح من اليمين لليسار، فالسهم الأيسر
+      // يتقدّم للأمام لا للخلف. بدون هذا يعمل التنقّل بلوحة المفاتيح معكوسًا.
+      const isRtl =
+        opts?.direction === "rtl" ||
+        (opts?.direction !== "ltr" &&
+          typeof document !== "undefined" &&
+          document.documentElement.dir === "rtl")
+      const forward = isRtl
+        ? event.key === "ArrowLeft"
+        : event.key === "ArrowRight"
+
+      if (forward) scrollNext()
+      else scrollPrev()
     },
-    [scrollPrev, scrollNext]
+    [scrollPrev, scrollNext, opts?.direction]
   )
 
   React.useEffect(() => {
@@ -199,7 +208,7 @@ function CarouselPrevious({
       {...props}
     >
       <ChevronLeftIcon className="rtl:rotate-180" />
-      <span className="sr-only">Previous slide</span>
+      <span className="sr-only">الشريحة السابقة</span>
     </Button>
   )
 }
@@ -229,7 +238,7 @@ function CarouselNext({
       {...props}
     >
       <ChevronRightIcon className="rtl:rotate-180" />
-      <span className="sr-only">Next slide</span>
+      <span className="sr-only">الشريحة التالية</span>
     </Button>
   )
 }
