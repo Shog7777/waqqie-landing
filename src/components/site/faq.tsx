@@ -25,7 +25,7 @@ export function Faq() {
           <Reveal delay={0.15}>
             <a
               href={`mailto:${site.email}`}
-              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-gold/30 bg-gold/8 px-4 py-2.5 text-sm text-gold transition-colors hover:bg-gold/15"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-gold/30 bg-abyss/70 px-4 py-2.5 text-sm text-gold transition-colors hover:border-gold/60 hover:bg-abyss"
             >
               <span className="font-mono ltr-num">{site.email}</span>
             </a>

@@ -15,14 +15,16 @@ import "./globals.css";
 const plexArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-plex-arabic",
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  // الأوزان المستخدمة فعليًا فقط. كل وزن إضافي ملف يُحمَّل ويزاحم غيره على
+  // النطاق، وقياس Lighthouse أظهر أن تحميل الخطوط هو ما كان يؤخّر LCP.
+  weight: ["400", "700"],
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -30,7 +32,9 @@ const jetbrainsMono = JetBrains_Mono({
 const arefRuqaa = Aref_Ruqaa({
   variable: "--font-aref",
   subsets: ["arabic"],
-  weight: ["400", "700"],
+  weight: ["400"],
+  // يظهر مرة واحدة فقط داخل مجسّم أسفل الصفحة، فلا داعي لمزاحمته الخطوط الأساسية.
+  preload: false,
   display: "swap",
 });
 
@@ -91,6 +95,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           تخطَّ إلى المحتوى
         </a>
+        {/* بدون JS لا يُضاف is-visible، فنلغي الإخفاء بالكامل */}
+        <noscript>
+          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
         <Providers>
           <ScrollProgress />
           {children}

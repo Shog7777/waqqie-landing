@@ -4,6 +4,7 @@ import { FinalCta } from "@/components/site/final-cta";
 import { Footer } from "@/components/site/footer";
 import { Hero } from "@/components/site/hero";
 import { HowItWorks } from "@/components/site/how-it-works";
+import { MobileCtaBar } from "@/components/site/mobile-cta-bar";
 import { Navbar } from "@/components/site/navbar";
 import { Pricing } from "@/components/site/pricing";
 import { Showcase } from "@/components/site/showcase";
@@ -62,6 +63,7 @@ export default function Home() {
         <FinalCta />
       </main>
       <Footer />
+      <MobileCtaBar />
     </>
   );
 }

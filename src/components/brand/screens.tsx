@@ -65,27 +65,19 @@ export function HomeScreen() {
   return (
     <div className="flex size-full flex-col bg-ink">
       <div className="flex items-center justify-between px-4 pb-4 pt-2">
-        <div className="flex flex-col leading-none">
-          <span className="text-base font-bold text-ivory">وقّع</span>
-          <span
-            className="font-mono text-[0.42rem] text-gold"
-            style={{ letterSpacing: "0.4em" }}
-          >
-            WAQQIE
-          </span>
-        </div>
+        <span className="text-base font-bold text-ivory">وقّع</span>
         <span className="grid size-7 place-items-center rounded-full bg-gold/15 text-[0.6rem] font-semibold text-gold">
           ش
         </span>
       </div>
 
       <div className="mx-4 mb-4 flex items-center gap-2 rounded-xl border border-ivory/10 bg-abyss/50 px-3 py-2">
-        <Search className="size-3.5 text-ivory/40" />
-        <span className="text-[0.68rem] text-ivory/40">ابحث في مستنداتك…</span>
+        <Search className="size-3.5 text-ivory/70" />
+        <span className="text-[0.68rem] text-ivory/70">ابحث في مستنداتك…</span>
       </div>
 
       <p
-        className="mb-2 px-4 font-mono text-[0.55rem] text-ivory/45"
+        className="mb-2 px-4 font-mono text-[0.55rem] text-ivory/70"
         style={{ letterSpacing: "0.22em" }}
       >
         RECENT
@@ -102,12 +94,14 @@ export function HomeScreen() {
             </span>
             <span className="flex min-w-0 flex-1 flex-col leading-tight">
               <span className="truncate text-[0.68rem] font-medium text-ivory">{d.name}</span>
-              <span className="font-mono text-[0.52rem] text-ivory/40 ltr-num">{d.id}</span>
+              <span className="font-mono text-[0.52rem] text-ivory/70 ltr-num">{d.id}</span>
             </span>
             <span
               className={cn(
                 "rounded-full px-2 py-0.5 font-mono text-[0.45rem]",
-                d.state === "SIGNED" ? "bg-gold/15 text-gold" : "bg-ivory/10 text-ivory/45",
+                d.state === "SIGNED"
+                  ? "bg-abyss/70 text-gold"
+                  : "bg-abyss/70 text-ivory/70",
               )}
               style={{ letterSpacing: "0.12em" }}
             >
@@ -174,13 +168,13 @@ export function ScanScreen() {
       </div>
 
       <div className="relative z-10 flex items-center justify-between px-6 pb-7">
-        <span className="font-mono text-[0.6rem] text-ivory/60 ltr-num">
+        <span className="font-mono text-[0.6rem] text-ivory/70 ltr-num">
           {toEasternNumerals("2/3")}
         </span>
         <span className="grid size-14 place-items-center rounded-full border-2 border-ivory/80">
           <span className="size-11 rounded-full bg-ivory" />
         </span>
-        <Images className="size-5 text-ivory/60" />
+        <Images className="size-5 text-ivory/70" />
       </div>
     </div>
   );
@@ -213,7 +207,7 @@ export function SignScreen() {
         <div className="mb-3 h-2 w-2/5 rounded-full bg-ink/30" />
         <PaperLines count={6} />
         <div className="mt-5 border-t border-dashed border-ink/20 pt-3">
-          <span className="font-mono text-[0.5rem] text-ink/45 ltr-num">SIGNATURE</span>
+          <span className="font-mono text-[0.5rem] text-ink/90 ltr-num">SIGNATURE</span>
           <div className="relative h-14">
             <SignatureMark className="absolute inset-0 h-14" />
           </div>
@@ -226,7 +220,7 @@ export function SignScreen() {
             key={t.label}
             className={cn(
               "flex flex-1 flex-col items-center gap-1 rounded-lg py-1.5 text-[0.55rem]",
-              t.active ? "bg-gold/15 text-gold" : "text-ivory/50",
+              t.active ? "bg-gold/15 text-gold" : "text-ivory/70",
             )}
           >
             <t.icon className="size-4" />
@@ -247,8 +241,8 @@ export function StampScreen() {
     <div className="flex size-full flex-col bg-ink">
       <ScreenTitle title="ختم التاريخ" />
       <div className="flex-1 px-4">
-        <DateStamp compact />
-        <p className="mt-4 rounded-lg border border-ivory/10 bg-card px-3 py-2 text-[0.6rem] leading-relaxed text-ivory/55">
+        <DateStamp compact readOnly />
+        <p className="mt-4 rounded-lg border border-ivory/10 bg-card px-3 py-2 text-[0.6rem] leading-relaxed text-ivory/70">
           يُطبَّق الختم على الصفحة الحالية، ويمكنك سحبه إلى أي موضع في الوثيقة.
         </p>
       </div>
@@ -282,7 +276,7 @@ export function SuccessScreen() {
         تم التوقيع بنجاح
       </p>
 
-      <span className="relative flex items-center gap-2 rounded-full border border-ivory/10 bg-abyss/60 px-3 py-1.5">
+      <span className="relative flex items-center gap-2 rounded-full border border-ivory/10 bg-abyss px-3 py-1.5">
         <span className="text-[0.62rem] text-ivory/70">عقد إيجار.pdf</span>
         <span className="font-mono text-[0.55rem] text-gold ltr-num">{SAMPLE_DOC_ID}</span>
       </span>

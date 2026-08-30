@@ -17,12 +17,16 @@ export function TrustBar() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <dl className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
           {trustBadges.map((b, i) => (
-            <Reveal key={b.label} delay={i * 0.07}>
-              <div className="flex flex-col gap-1.5 border-e border-ivory/10 pe-6 last:border-e-0 max-lg:[&:nth-child(2n)]:border-e-0">
-                <dt className="text-xl font-bold text-gold ltr-num sm:text-2xl">{b.value}</dt>
-                <dd className="text-sm font-medium text-ivory">{b.label}</dd>
-                <p className="text-xs leading-relaxed text-ivory/65">{b.hint}</p>
-              </div>
+            <Reveal
+              key={b.label}
+              delay={i * 0.07}
+              className="flex flex-col gap-1.5 border-e border-ivory/10 pe-6 last:border-e-0 max-lg:[&:nth-child(2n)]:border-e-0"
+            >
+              <dt className="text-xl font-bold text-gold ltr-num sm:text-2xl">{b.value}</dt>
+              <dd className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-ivory">{b.label}</span>
+                <span className="text-xs leading-relaxed text-ivory/65">{b.hint}</span>
+              </dd>
             </Reveal>
           ))}
         </dl>

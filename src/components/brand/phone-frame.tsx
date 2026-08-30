@@ -27,7 +27,10 @@ export function PhoneFrame({
         {/* الجزيرة الديناميكية */}
         <div className="absolute start-1/2 top-2.5 z-30 h-[22px] w-[86px] -translate-x-1/2 rounded-full bg-black rtl:translate-x-1/2" />
         <StatusBar />
-        <div className="relative z-10 h-[calc(100%-2.25rem)] overflow-hidden">{children}</div>
+        {/* الإطار كله يُعلَن كصورة واحدة عبر aria-label، فمحتواه لا يُقرأ مرتين */}
+        <div aria-hidden className="relative z-10 h-[calc(100%-2.25rem)] overflow-hidden">
+          {children}
+        </div>
       </div>
     </div>
   );

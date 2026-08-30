@@ -17,7 +17,7 @@ export function Footer() {
       {/* الشريط الذهبي — عنصر هوية دائم أسفل أي ترويسة أو تذييل رسمي */}
       <span aria-hidden className="block h-[3px] w-full bg-gold" />
 
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 pb-28 pt-14 sm:px-6 sm:pb-14">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div className="flex flex-col items-start gap-5">
             <Logo size="lg" className="items-start" />
@@ -26,7 +26,7 @@ export function Footer() {
             </p>
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-2 text-sm text-ivory/60 transition-colors hover:text-gold"
+              className="inline-flex items-center gap-2 text-sm text-ivory/70 transition-colors hover:text-gold"
             >
               <Mail className="size-4" />
               <span className="font-mono ltr-num">{site.email}</span>
@@ -36,7 +36,7 @@ export function Footer() {
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    aria-label={s.label}
+                    aria-label={`${s.label} (${s.glyph})`}
                     className="grid size-9 place-items-center rounded-lg border border-ivory/12 font-mono text-[0.7rem] text-ivory/60 transition-all hover:border-gold/45 hover:text-gold"
                   >
                     {s.glyph}

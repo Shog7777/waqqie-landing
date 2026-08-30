@@ -62,16 +62,25 @@ export function Showcase() {
                   className="basis-[76%] sm:basis-[46%] lg:basis-[30%]"
                 >
                   <div
+                    // التمييز بالحجم لا بالشفافية: تخفيت الشريحة بـ opacity
+                    // يخفض تباين كل نص داخلها ويُسقط تدقيق التباين.
                     className={cn(
                       "flex flex-col items-center gap-5 transition-all duration-500",
-                      active ? "scale-100 opacity-100" : "scale-[0.9] opacity-45",
+                      active ? "scale-100" : "scale-[0.88] saturate-[0.85]",
                     )}
                   >
                     <PhoneFrame label={s.title} className="w-[230px] sm:w-[248px]">
                       <Screen />
                     </PhoneFrame>
                     <div className="text-center">
-                      <h3 className="text-base font-semibold text-ivory">{s.title}</h3>
+                      <h3
+                        className={cn(
+                          "text-base font-semibold transition-colors",
+                          active ? "text-ivory" : "text-ivory/70",
+                        )}
+                      >
+                        {s.title}
+                      </h3>
                       <p className="mt-1 max-w-[16rem] text-xs leading-relaxed text-ivory/65">
                         {s.caption}
                       </p>
@@ -87,7 +96,7 @@ export function Showcase() {
         </Carousel>
 
         {/* مؤشّرات */}
-        <div className="mt-8 flex items-center justify-center gap-2">
+        <div className="mt-4 flex items-center justify-center">
           {screens.map((s, i) => (
             <button
               key={s.id}
@@ -95,11 +104,17 @@ export function Showcase() {
               onClick={() => api?.scrollTo(i)}
               aria-label={`اذهب إلى ${s.title}`}
               aria-current={i === current}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === current ? "w-8 bg-gold" : "w-1.5 bg-ivory/25 hover:bg-ivory/45",
-              )}
-            />
+              className="group grid h-11 w-11 place-items-center"
+            >
+              <span
+                className={cn(
+                  "block h-1.5 rounded-full transition-all duration-300",
+                  i === current
+                    ? "w-8 bg-gold"
+                    : "w-1.5 bg-ivory/25 group-hover:bg-ivory/45",
+                )}
+              />
+            </button>
           ))}
         </div>
       </div>

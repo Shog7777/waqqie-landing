@@ -20,6 +20,7 @@ function Segmented<T extends string>({
   label,
   icon,
   compact,
+  readOnly,
 }: {
   value: T;
   onChange: (v: T) => void;
@@ -27,12 +28,13 @@ function Segmented<T extends string>({
   label: string;
   icon: React.ReactNode;
   compact?: boolean;
+  readOnly?: boolean;
 }) {
   return (
     <div className="flex items-center justify-between gap-2">
       <span
         className={cn(
-          "flex items-center gap-1.5 text-ivory/55",
+          "flex items-center gap-1.5 text-ivory/70",
           compact ? "text-[0.62rem]" : "text-xs",
         )}
       >
@@ -46,22 +48,26 @@ function Segmented<T extends string>({
       >
         {options.map((o) => {
           const active = o.value === value;
+          // داخل مجسّم الجوال يُعرض الخيار كعنصر ساكن: الإطار كله صورة توضيحية،
+          // ووجود زر قابل للتركيز داخل محتوى aria-hidden مخالفة وصولية.
+          const Tag = readOnly ? "span" : "button";
           return (
-            <button
+            <Tag
               key={o.value}
-              type="button"
-              aria-pressed={active}
-              onClick={() => onChange(o.value)}
+              {...(readOnly
+                ? {}
+                : { type: "button" as const, onClick: () => onChange(o.value) })}
+              aria-pressed={readOnly ? undefined : active}
               className={cn(
                 "rounded-md transition-all duration-200",
                 compact ? "px-2 py-0.5 text-[0.6rem]" : "px-3 py-1 text-xs",
                 active
                   ? "bg-gold font-semibold text-ink"
-                  : "text-ivory/55 hover:text-ivory",
+                  : "text-ivory/70 hover:text-ivory",
               )}
             >
               {o.label}
-            </button>
+            </Tag>
           );
         })}
       </div>
@@ -75,9 +81,12 @@ function Segmented<T extends string>({
  */
 export function DateStamp({
   compact = false,
+  readOnly = false,
   className,
 }: {
   compact?: boolean;
+  /** عرض بلا تفاعل — للاستخدام داخل مجسّمات الجوال */
+  readOnly?: boolean;
   className?: string;
 }) {
   const [calendar, setCalendar] = useState<Calendar>("hijri");
@@ -119,7 +128,7 @@ export function DateStamp({
             </span>
             <span
               className={cn(
-                "font-mono text-[color-mix(in_oklab,var(--wq-ink)_65%,transparent)]",
+                "font-mono text-[color-mix(in_oklab,var(--wq-ink)_88%,transparent)]",
                 compact ? "text-[0.5rem]" : "text-[0.58rem]",
               )}
               style={{ letterSpacing: "0.3em" }}
@@ -135,13 +144,13 @@ export function DateStamp({
               )}
             >
               {numeric}{" "}
-              <span className="text-[0.75em] text-[color-mix(in_oklab,var(--wq-ink)_60%,transparent)]">
+              <span className="text-[0.75em] text-[color-mix(in_oklab,var(--wq-ink)_88%,transparent)]">
                 {suffix}
               </span>
             </span>
             <span
               className={cn(
-                "font-mono text-[color-mix(in_oklab,var(--wq-ink)_55%,transparent)] ltr-num",
+                "font-mono text-[color-mix(in_oklab,var(--wq-ink)_85%,transparent)] ltr-num",
                 compact ? "text-[0.5rem]" : "text-[0.62rem]",
               )}
             >
@@ -155,6 +164,7 @@ export function DateStamp({
         <Segmented
           label="التقويم"
           compact={compact}
+          readOnly={readOnly}
           icon={<CalendarDays className={compact ? "size-3" : "size-3.5"} />}
           value={calendar}
           onChange={setCalendar}
@@ -166,6 +176,7 @@ export function DateStamp({
         <Segmented
           label="نمط الأرقام"
           compact={compact}
+          readOnly={readOnly}
           icon={<Hash className={compact ? "size-3" : "size-3.5"} />}
           value={numerals}
           onChange={setNumerals}

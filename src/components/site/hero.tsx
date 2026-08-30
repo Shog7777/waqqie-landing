@@ -4,7 +4,7 @@ import { GoldGlow, GridPattern, NodePattern } from "@/components/brand/pattern";
 import { PhoneFrame } from "@/components/brand/phone-frame";
 import { SignScreen, WhatsAppGlyph } from "@/components/brand/screens";
 import { StoreBadges } from "@/components/brand/store-badges";
-import { Reveal } from "@/components/motion/reveal";
+import { Rise } from "@/components/motion/rise";
 import { hero } from "@/lib/content";
 
 const proofItems = [
@@ -27,32 +27,31 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
         {/* النص */}
         <div className="flex flex-col items-start gap-7">
-          <Reveal>
+          <Rise>
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/35 bg-gold/8 px-4 py-1.5 text-xs text-gold">
               <WhatsAppGlyph className="size-3.5 text-whatsapp" />
               {hero.eyebrow}
             </span>
-          </Reveal>
+          </Rise>
 
-          <Reveal delay={0.06}>
-            <h1 className="text-4xl font-bold leading-[1.18] text-ivory sm:text-5xl lg:text-[3.4rem]">
-              {hero.titleLead}
-              <span className="mx-2 text-gold/40">—</span>
-              <span className="text-gradient-gold whitespace-nowrap">{hero.titleAccent}</span>
-            </h1>
-          </Reveal>
+          {/* العنوان والنص الفرعي بلا حركة دخول عمدًا: أي عنصر يبدأ بشفافية صفر
+              يُستبعد من قياس LCP حتى يظهر، وهذان أكبر نصّين في الصفحة —
+              فيُرسمان مع أول رسم بدل انتظار انتهاء الحركة. */}
+          <h1 className="text-4xl font-bold leading-[1.18] text-ivory sm:text-5xl lg:text-[3.4rem]">
+            {hero.titleLead}
+            <span className="mx-2 text-gold/40">—</span>
+            <span className="whitespace-nowrap text-gradient-gold">{hero.titleAccent}</span>
+          </h1>
 
-          <Reveal delay={0.12}>
-            <p className="max-w-xl text-base leading-[2] text-ivory/65 sm:text-lg">
-              {hero.subtitle}
-            </p>
-          </Reveal>
+          <p className="max-w-xl text-base leading-[2] text-ivory/70 sm:text-lg">
+            {hero.subtitle}
+          </p>
 
-          <Reveal delay={0.18}>
+          <Rise delay={0.18}>
             <StoreBadges />
-          </Reveal>
+          </Rise>
 
-          <Reveal delay={0.24}>
+          <Rise delay={0.24}>
             <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
               {proofItems.map((p) => (
                 <li key={p.text} className="flex items-center gap-2 text-sm text-ivory/70">
@@ -61,11 +60,11 @@ export function Hero() {
                 </li>
               ))}
             </ul>
-          </Reveal>
+          </Rise>
         </div>
 
         {/* المجسّم */}
-        <Reveal delay={0.2} className="flex justify-center">
+        <Rise delay={0.2} className="flex justify-center">
           <div className="relative">
             <div
               aria-hidden
@@ -79,17 +78,17 @@ export function Hero() {
             </div>
 
             {/* بطاقات طافية تُلخّص القيمة */}
-            <div className="absolute -top-4 start-6 hidden rounded-xl border border-ivory/12 bg-abyss/85 px-3 py-2 shadow-lg backdrop-blur sm:block">
+            <div className="absolute -top-4 start-6 hidden rounded-xl border border-ivory/12 bg-abyss px-3 py-2 shadow-lg sm:block">
               <p className="font-mono text-[0.55rem] text-gold ltr-num">#WQ-0042</p>
               <p className="text-[0.7rem] text-ivory/70">عقد إيجار — الرياض</p>
             </div>
 
-            <div className="absolute -end-4 bottom-28 hidden items-center gap-2 rounded-xl border border-whatsapp/30 bg-abyss/85 px-3 py-2 backdrop-blur sm:flex">
+            <div className="absolute -end-4 bottom-28 hidden items-center gap-2 rounded-xl border border-whatsapp/30 bg-abyss px-3 py-2 sm:flex">
               <WhatsAppGlyph className="size-4 text-whatsapp" />
               <span className="text-[0.7rem] text-ivory/75">أُرسل في المحادثة</span>
             </div>
           </div>
-        </Reveal>
+        </Rise>
       </div>
     </section>
   );
