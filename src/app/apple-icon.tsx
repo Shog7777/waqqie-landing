@@ -2,11 +2,11 @@ import { ImageResponse } from "next/og";
 
 import { loadArabicOgFont } from "@/lib/og-font";
 
-export const size = { width: 64, height: 64 };
+export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-/** أيقونة الموقع — حرف الشعار الذهبي على Deep Ink Teal. */
-export default async function Icon() {
+/** أيقونة شاشة iOS الرئيسية — نفس تركيب أيقونة المتصفح بمقاس أكبر. */
+export default async function AppleIcon() {
   const font = await loadArabicOgFont();
 
   return new ImageResponse(
@@ -20,7 +20,7 @@ export default async function Icon() {
           justifyContent: "center",
           background: "#0F4C5C",
           color: "#D4A24E",
-          fontSize: 26,
+          fontSize: 72,
           fontWeight: 700,
         }}
       >
