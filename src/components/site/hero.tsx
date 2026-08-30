@@ -5,13 +5,9 @@ import { PhoneFrame } from "@/components/brand/phone-frame";
 import { SignScreen, WhatsAppGlyph } from "@/components/brand/screens";
 import { StoreBadges } from "@/components/brand/store-badges";
 import { Rise } from "@/components/motion/rise";
-import { hero } from "@/lib/content";
+import { hero, ui } from "@/lib/content";
 
-const proofItems = [
-  { icon: ShieldCheck, text: "معالجة كاملة على الجهاز" },
-  { icon: WifiOff, text: "يعمل دون إنترنت" },
-  { icon: FileCheck2, text: "تصدير PDF قياسي" },
-];
+const proofIcons = [ShieldCheck, WifiOff, FileCheck2];
 
 export function Hero() {
   return (
@@ -53,12 +49,15 @@ export function Hero() {
 
           <Rise delay={0.24}>
             <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
-              {proofItems.map((p) => (
-                <li key={p.text} className="flex items-center gap-2 text-sm text-ivory/70">
-                  <p.icon className="size-4 text-gold" />
-                  {p.text}
-                </li>
-              ))}
+              {ui.heroProof.map((text, i) => {
+                const Icon = proofIcons[i];
+                return (
+                  <li key={text} className="flex items-center gap-2 text-sm text-ivory/70">
+                    <Icon className="size-4 text-gold" />
+                    {text}
+                  </li>
+                );
+              })}
             </ul>
           </Rise>
         </div>

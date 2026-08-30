@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { faqs, site } from "@/lib/content";
+import { faqs, sections, site } from "@/lib/content";
 
 export function Faq() {
   return (
@@ -14,13 +14,7 @@ export function Faq() {
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
-            eyebrow="FAQ"
-            title={
-              <>
-                أسئلة يطرحها <span className="text-gradient-gold">أغلب المستخدمين</span>
-              </>
-            }
-            description="لم تجد إجابتك؟ راسلنا وسنرد خلال يوم عمل."
+            {...sections.faq}
           />
           <Reveal delay={0.15}>
             <a

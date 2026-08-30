@@ -2,21 +2,14 @@ import { Quote } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
-import { testimonials } from "@/lib/content";
+import { sections, testimonials } from "@/lib/content";
 
 export function Testimonials() {
   return (
     <section id="testimonials" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Testimonials"
-          title={
-            <>
-              أشخاص يوقّعون يوميًا،{" "}
-              <span className="text-gradient-gold">بلا طابعة ولا انتظار</span>
-            </>
-          }
-          description="نماذج استخدام واقعية من الفئات التي بُني وقّع لأجلها."
+          {...sections.testimonials}
         />
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

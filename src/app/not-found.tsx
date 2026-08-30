@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
 import { GoldGlow, GridPattern } from "@/components/brand/pattern";
 import { Button } from "@/components/ui/button";
+import { ui } from "@/lib/content";
 
 export const metadata = {
   title: "الصفحة غير موجودة",
@@ -23,16 +24,12 @@ export default function NotFound() {
         >
           404
         </span>
-        <h1 className="text-2xl font-bold text-ivory sm:text-3xl">
-          هذه الصفحة لم تُوقَّع بعد
-        </h1>
-        <p className="max-w-sm text-sm leading-[2] text-ivory/70">
-          الرابط الذي وصلت منه لا يقود إلى شيء. عُد إلى الصفحة الرئيسية وتابع من هناك.
-        </p>
+        <h1 className="text-2xl font-bold text-ivory sm:text-3xl">{ui.notFound.title}</h1>
+        <p className="max-w-sm text-sm leading-[2] text-ivory/70">{ui.notFound.body}</p>
       </div>
 
       <Button asChild size="lg" className="relative h-11 px-6 font-semibold">
-        <Link href="/">العودة للرئيسية</Link>
+        <Link href="/">{ui.notFound.cta}</Link>
       </Button>
     </main>
   );

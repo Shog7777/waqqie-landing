@@ -13,7 +13,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { screens } from "@/lib/content";
+import { screens, sections } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function Showcase() {
@@ -34,14 +34,8 @@ export function Showcase() {
     <section id="showcase" className="relative overflow-hidden py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="App showcase"
+          {...sections.showcase}
           align="center"
-          title={
-            <>
-              خمس شاشات، <span className="text-gradient-gold">رحلة واحدة</span>
-            </>
-          }
-          description="واجهة عربية مبنية من اليمين إلى اليسار — لا نسخة معكوسة عن تصميم إنجليزي."
           className="mx-auto items-center text-center"
         />
       </div>

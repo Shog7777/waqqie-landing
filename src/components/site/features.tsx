@@ -5,6 +5,7 @@ import { WhatsAppGlyph } from "@/components/brand/screens";
 import { SignatureMark } from "@/components/brand/signature-mark";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
+import { featureExtras, features, sections } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 function Tile({
@@ -70,14 +71,7 @@ export function Features() {
     <section id="features" className="relative py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Features"
-          title={
-            <>
-              كل ما تحتاجه لتوقيع وثيقة،{" "}
-              <span className="text-gradient-gold">ولا شيء زائد</span>
-            </>
-          }
-          description="ستّ قدرات مبنية حول سؤال واحد: كيف نُنهي التوقيع بأقل عدد ممكن من الخطوات، دون أن يغادر المستند جهازك؟"
+          {...sections.features}
         />
 
         <div className="mt-14 grid gap-4 lg:grid-cols-6">
@@ -87,16 +81,13 @@ export function Features() {
               <TileIcon tone="whatsapp">
                 <WhatsAppGlyph className="size-5" />
               </TileIcon>
-              <TileText
-                title="أرسله عبر واتساب فورًا"
-                body="أنهِ التوقيع وشارك النسخة الموقّعة في المحادثة نفسها. لا تحميل، لا بريد، لا خطوة زائدة — والأخضر هنا فقط، حيث ينتمي."
-              />
+              <TileText {...features.whatsapp} />
 
               <div className="mt-6 flex flex-col gap-2.5">
                 {/* في الاتجاه العربي: رسالة الطرف الآخر يمينًا، وردّك يسارًا */}
                 <div className="flex justify-start">
                   <span className="max-w-[75%] rounded-2xl rounded-ss-sm bg-ivory/8 px-4 py-2.5 text-sm text-ivory/75">
-                    ترسل لي العقد موقّع؟
+                    {featureExtras.chat.incoming}
                   </span>
                 </div>
                 <div className="flex justify-end">
@@ -105,9 +96,9 @@ export function Features() {
                       <span className="h-4 w-3 rounded-[2px] bg-ink/70" />
                     </span>
                     <span className="flex flex-col leading-tight">
-                      <span className="text-sm text-ivory">عقد إيجار — موقّع.pdf</span>
+                      <span className="text-sm text-ivory">{featureExtras.chat.fileName}</span>
                       <span className="font-mono text-[0.6rem] text-whatsapp ltr-num">
-                        842 KB · 14:32
+                        {featureExtras.chat.fileMeta}
                       </span>
                     </span>
                   </span>
@@ -122,14 +113,13 @@ export function Features() {
               <TileIcon>
                 <ShieldCheck className="size-5" />
               </TileIcon>
-              <TileText
-                title="خصوصية لا تفاوض عليها"
-                body="عقودك تبقى على جهازك من أول لقطة حتى التصدير. لا سحابة، لا حساب إجباري، لا تتبّع."
-              />
+              <TileText {...features.privacy} />
               <div className="mt-auto pt-6">
                 <div className="flex items-center justify-between rounded-xl border border-ivory/10 bg-abyss/50 px-3 py-2.5">
                   <span className="font-mono text-[0.62rem] text-ivory/65">UPLOADS</span>
-                  <span className="font-mono text-sm font-semibold text-gold ltr-num">0</span>
+                  <span className="font-mono text-sm font-semibold text-gold ltr-num">
+                    {featureExtras.uploadsValue}
+                  </span>
                 </div>
               </div>
             </Tile>
@@ -141,10 +131,7 @@ export function Features() {
               <TileIcon>
                 <ScanLine className="size-5" />
               </TileIcon>
-              <TileText
-                title="ماسح ضوئي ذكي"
-                body="الكاميرا تلتقط أطراف الورقة، تُصحّح الانحراف، وتزيل الظلال تلقائيًا — مسح متعدد الصفحات بضغطة."
-              />
+              <TileText {...features.scanner} />
             </Tile>
           </Reveal>
 
@@ -154,10 +141,7 @@ export function Features() {
               <TileIcon>
                 <PenLine className="size-5" />
               </TileIcon>
-              <TileText
-                title="توقيع بدقة القلم"
-                body="محرك رسم متجهي فائق الاستجابة يحاكي ضغطة القلم الطبيعية، مع حفظ توقيعك لإعادة استخدامه."
-              />
+              <TileText {...features.signature} />
               <div className="mt-auto pt-4">
                 <div className="rounded-xl bg-ivory px-3 py-1">
                   <SignatureMark className="h-14" strokeWidth={2.5} />
@@ -172,10 +156,7 @@ export function Features() {
               <TileIcon>
                 <Layers className="size-5" />
               </TileIcon>
-              <TileText
-                title="إدارة صفحات وتصدير"
-                body="رتّب الصفحات، احذف أو ادمج عدة مستندات، وصدّر PDF عالي الجودة متوافقًا مع الجهات الرسمية."
-              />
+              <TileText {...features.pages} />
               <div className="mt-auto flex items-end gap-2 pt-6" aria-hidden>
                 {[0, 1, 2, 3].map((i) => (
                   <span
@@ -196,12 +177,9 @@ export function Features() {
                   <TileIcon>
                     <Stamp className="size-5" />
                   </TileIcon>
-                  <TileText
-                    title="أختام وتواريخ بصيغتك أنت"
-                    body="بدّل بين التقويم الهجري والميلادي، وبين الأرقام الغبارية (0-9) والمشرقية (٠-٩)، بما يوافق التنسيق القانوني لوثيقتك. جرّبها الآن — الختم يتغيّر مباشرة."
-                  />
+                  <TileText {...features.stamp} />
                   <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold/25 bg-gold/8 px-3 py-1.5 text-xs text-gold">
-                    مثال حيّ — بدّل الخيارات وشاهد الختم
+                    {featureExtras.stampHint}
                   </p>
                 </div>
                 <div className="rounded-2xl border border-ivory/10 bg-abyss/40 p-5">

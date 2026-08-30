@@ -1,7 +1,7 @@
 import { Mail } from "lucide-react";
 
 import { Logo } from "@/components/brand/logo";
-import { footerLinks, site } from "@/lib/content";
+import { footerLinks, site, ui } from "@/lib/content";
 
 const socials = [
   { label: "X", href: "#", glyph: "X" },
@@ -22,7 +22,7 @@ export function Footer() {
           <div className="flex flex-col items-start gap-5">
             <Logo size="lg" className="items-start" />
             <p className="max-w-xs text-sm leading-[2] text-ivory/65">
-              تطبيق توقيع إلكتروني عربي — امسح، وقّع، وأرسل من جوالك، وكل شيء يبقى على جهازك.
+              {ui.footerBlurb}
             </p>
             <a
               href={`mailto:${site.email}`}
@@ -77,7 +77,7 @@ export function Footer() {
             © 2026 {site.latin} · {site.domain}
           </p>
           <p className="text-[0.7rem] text-ivory/65">
-            صفحة هبوط تجريبية لأغراض التقييم التصميمي — الشهادات والأرقام المعروضة توضيحية.
+            {ui.footerNote}
           </p>
         </div>
       </div>

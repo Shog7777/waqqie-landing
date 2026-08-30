@@ -14,7 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useActiveSection } from "@/hooks/use-active-section";
-import { nav } from "@/lib/content";
+import { nav, ui } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const sectionIds = nav.map((n) => n.href.slice(1));
@@ -38,10 +38,10 @@ export function Navbar() {
       )}
     >
       <nav
-        aria-label="التنقّل الرئيسي"
+        aria-label={ui.navAria}
         className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 sm:px-6"
       >
-        <a href="#main" aria-label="وقّع WAQQIE — العودة لأعلى الصفحة" className="shrink-0">
+        <a href="#main" aria-label={ui.logoHomeAria} className="shrink-0">
           <Logo size={scrolled ? "sm" : "md"} className="transition-all duration-300" />
         </a>
 
@@ -79,7 +79,7 @@ export function Navbar() {
             size="lg"
             className="hidden font-semibold shadow-[0_8px_24px_-10px_color-mix(in_oklab,var(--wq-gold)_90%,transparent)] sm:inline-flex"
           >
-            <a href="#download">حمّل التطبيق</a>
+            <a href="#download">{ui.downloadCta}</a>
           </Button>
 
           <Sheet>
@@ -88,14 +88,14 @@ export function Navbar() {
                 variant="outline"
                 size="icon-lg"
                 className="lg:hidden"
-                aria-label="فتح القائمة"
+                aria-label={ui.menuAria}
               >
                 <Menu />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[82vw] border-ivory/10 bg-abyss sm:w-80">
               <SheetHeader className="items-start">
-                <SheetTitle className="sr-only">قائمة التنقّل</SheetTitle>
+                <SheetTitle className="sr-only">{ui.menuTitle}</SheetTitle>
                 <Logo size="md" />
               </SheetHeader>
               <ul className="flex flex-col gap-1 px-4">
@@ -121,7 +121,7 @@ export function Navbar() {
               <div className="mt-auto p-4">
                 <SheetClose asChild>
                   <Button asChild size="lg" className="h-11 w-full font-semibold">
-                    <a href="#download">حمّل التطبيق</a>
+                    <a href="#download">{ui.downloadCta}</a>
                   </Button>
                 </SheetClose>
               </div>

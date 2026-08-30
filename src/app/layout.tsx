@@ -3,7 +3,7 @@ import { Aref_Ruqaa, IBM_Plex_Sans_Arabic, JetBrains_Mono } from "next/font/goog
 
 import { Providers } from "@/components/providers";
 import { ScrollProgress } from "@/components/site/scroll-progress";
-import { site } from "@/lib/content";
+import { site, ui } from "@/lib/content";
 
 import "./globals.css";
 
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="#main"
           className="sr-only rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:end-4 focus:top-4 focus:z-[999]"
         >
-          تخطَّ إلى المحتوى
+          {ui.skipToContent}
         </a>
         {/* بدون JS لا يُضاف is-visible، فنلغي الإخفاء بالكامل */}
         <noscript>

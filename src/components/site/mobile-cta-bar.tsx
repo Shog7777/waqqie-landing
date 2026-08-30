@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ui } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /**
@@ -40,11 +41,11 @@ export function MobileCtaBar() {
     >
       <div className="flex items-center justify-between gap-3 px-4 py-3">
         <p className="flex flex-col leading-tight">
-          <span className="text-sm font-semibold text-ivory">وقّع أول مستند</span>
-          <span className="text-[0.7rem] text-ivory/70">مجانًا · بلا إنشاء حساب</span>
+          <span className="text-sm font-semibold text-ivory">{ui.mobileBar.title}</span>
+          <span className="text-[0.7rem] text-ivory/70">{ui.mobileBar.subtitle}</span>
         </p>
         <Button asChild size="lg" className="h-11 shrink-0 px-5 text-sm font-semibold">
-          <a href="#download">حمّل التطبيق</a>
+          <a href="#download">{ui.downloadCta}</a>
         </Button>
       </div>
     </div>

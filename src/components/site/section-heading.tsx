@@ -7,13 +7,17 @@ import { cn } from "@/lib/utils";
  */
 export function SectionHeading({
   eyebrow,
-  title,
+  titleLead,
+  titleAccent,
   description,
   align = "start",
   className,
 }: {
   eyebrow: string;
-  title: React.ReactNode;
+  /** الجزء العادي من العنوان */
+  titleLead: string;
+  /** الجزء المميّز بالتدرّج الذهبي */
+  titleAccent: string;
   description?: string;
   align?: "start" | "center";
   className?: string;
@@ -43,7 +47,7 @@ export function SectionHeading({
 
       <Reveal delay={0.06}>
         <h2 className="max-w-2xl text-3xl font-bold leading-[1.25] text-ivory sm:text-4xl">
-          {title}
+          {titleLead} <span className="text-gradient-gold">{titleAccent}</span>
         </h2>
       </Reveal>
 

@@ -3,7 +3,7 @@ import { Check, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Button } from "@/components/ui/button";
-import { plans } from "@/lib/content";
+import { plans, sections, ui } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function Pricing() {
@@ -11,14 +11,8 @@ export function Pricing() {
     <section id="pricing" className="relative border-y border-ivory/10 bg-abyss/40 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Pricing"
+          {...sections.pricing}
           align="center"
-          title={
-            <>
-              ابدأ مجانًا، وارتقِ <span className="text-gradient-gold">حين تحتاج</span>
-            </>
-          }
-          description="الباقة الأساسية تكفي للاستخدام اليومي. Pro لمن يوقّع كثيرًا ويحتاج أدوات أوسع."
           className="mx-auto items-center text-center"
         />
 
@@ -36,7 +30,7 @@ export function Pricing() {
                 {plan.highlighted ? (
                   <span className="absolute -top-3 start-8 inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1 text-[0.7rem] font-semibold text-ink">
                     <Sparkles className="size-3.5" />
-                    الأكثر اختيارًا
+                    {ui.planBadge}
                   </span>
                 ) : null}
 
@@ -84,8 +78,7 @@ export function Pricing() {
 
         <Reveal delay={0.2}>
           <p className="mt-8 text-center text-xs text-ivory/65">
-            تُدار الاشتراكات والمدفوعات عبر متاجر التطبيقات الرسمية — App Store و Google Play —
-            ويمكن الإلغاء في أي وقت من إعدادات حسابك في المتجر.
+            {ui.pricingNote}
           </p>
         </Reveal>
       </div>

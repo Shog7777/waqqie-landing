@@ -2,7 +2,7 @@ import { PenLine, ScanLine, Send, Stamp } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
-import { steps } from "@/lib/content";
+import { sections, steps } from "@/lib/content";
 
 const icons = [ScanLine, PenLine, Stamp, Send];
 
@@ -11,14 +11,8 @@ export function HowItWorks() {
     <section id="how" className="relative border-y border-ivory/10 bg-abyss/40 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="How it works"
+          {...sections.how}
           align="center"
-          title={
-            <>
-              أربع خطوات، <span className="text-gradient-gold">أقل من دقيقة</span>
-            </>
-          }
-          description="من الورقة على الطاولة إلى ملف موقّع في محادثة واتساب — دون أن تغادر جوالك."
           className="mx-auto items-center text-center"
         />
 
