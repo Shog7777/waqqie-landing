@@ -76,7 +76,7 @@ export function Features() {
 
         <div className="mt-14 grid gap-4 lg:grid-cols-6">
           {/* واتساب — البطاقة الرئيسية */}
-          <Reveal className="lg:col-span-4">
+          <Reveal className="min-w-0 lg:col-span-4">
             <Tile className="h-full">
               <TileIcon tone="whatsapp">
                 <WhatsAppGlyph className="size-5" />
@@ -108,7 +108,7 @@ export function Features() {
           </Reveal>
 
           {/* الخصوصية */}
-          <Reveal delay={0.08} className="lg:col-span-2">
+          <Reveal delay={0.08} className="min-w-0 lg:col-span-2">
             <Tile className="h-full">
               <TileIcon>
                 <ShieldCheck className="size-5" />
@@ -126,7 +126,7 @@ export function Features() {
           </Reveal>
 
           {/* الماسح */}
-          <Reveal delay={0.04} className="lg:col-span-2">
+          <Reveal delay={0.04} className="min-w-0 lg:col-span-2">
             <Tile className="h-full">
               <TileIcon>
                 <ScanLine className="size-5" />
@@ -136,7 +136,7 @@ export function Features() {
           </Reveal>
 
           {/* التوقيع */}
-          <Reveal delay={0.08} className="lg:col-span-2">
+          <Reveal delay={0.08} className="min-w-0 lg:col-span-2">
             <Tile className="h-full">
               <TileIcon>
                 <PenLine className="size-5" />
@@ -151,7 +151,7 @@ export function Features() {
           </Reveal>
 
           {/* إدارة الصفحات */}
-          <Reveal delay={0.12} className="lg:col-span-2">
+          <Reveal delay={0.12} className="min-w-0 lg:col-span-2">
             <Tile className="h-full">
               <TileIcon>
                 <Layers className="size-5" />
@@ -170,7 +170,7 @@ export function Features() {
           </Reveal>
 
           {/* الختم التفاعلي */}
-          <Reveal delay={0.16} className="lg:col-span-6">
+          <Reveal delay={0.16} className="min-w-0 lg:col-span-6">
             <Tile>
               <div className="grid gap-8 md:grid-cols-2 md:items-center">
                 <div>

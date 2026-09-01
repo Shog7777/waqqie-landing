@@ -101,7 +101,7 @@ export function DateStamp({
       <div
         className={cn(
           "relative overflow-hidden rounded-xl bg-ivory",
-          compact ? "p-3" : "p-5",
+          compact ? "p-3" : "p-4 sm:p-5",
         )}
       >
         <div
@@ -121,7 +121,7 @@ export function DateStamp({
             <span
               className={cn(
                 "font-bold text-ink",
-                compact ? "text-[0.7rem]" : "text-sm",
+                compact ? "text-[0.7rem]" : "text-xs sm:text-sm",
               )}
             >
               وقّع
@@ -140,7 +140,7 @@ export function DateStamp({
             <span
               className={cn(
                 "whitespace-nowrap font-mono font-semibold text-ink ltr-num",
-                compact ? "text-[0.72rem]" : "text-base",
+                compact ? "text-[0.72rem]" : "text-sm sm:text-base",
               )}
             >
               {numeric}{" "}

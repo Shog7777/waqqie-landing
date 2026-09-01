@@ -42,21 +42,31 @@ function sweep() {
   }
 }
 
-function onScroll() {
+function schedule(delay = 150) {
   if (timer) clearTimeout(timer);
-  timer = setTimeout(sweep, 150);
+  timer = setTimeout(sweep, delay);
+}
+
+function onScroll() {
+  schedule();
 }
 
 function attachGuard() {
   if (guardAttached) return;
   guardAttached = true;
   window.addEventListener("scroll", onScroll, { passive: true });
+  // القفز عبر رابط داخلي ينقل الصفحة دون إطلاق حدث تمرير في كل المتصفحات،
+  // ويحدث أحيانًا بعد الترطيب فيتجاوز الفحص الأوّلي عند التركيب.
+  window.addEventListener("hashchange", onScroll);
+  // مسحة واحدة مؤجَّلة تلتقط قفزة الوصول برابط يحوي #hash.
+  schedule(400);
 }
 
 function detachGuard() {
   if (!guardAttached) return;
   guardAttached = false;
   window.removeEventListener("scroll", onScroll);
+  window.removeEventListener("hashchange", onScroll);
   if (timer) {
     clearTimeout(timer);
     timer = undefined;

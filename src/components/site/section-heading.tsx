@@ -32,9 +32,12 @@ export function SectionHeading({
     >
       <Reveal>
         <span className="flex items-center gap-3">
+          {/* رقاقة داكنة خلف التسمية: الذهبي فوق Deep Ink Teal يعطي 4.11:1 وهو
+              دون عتبة AA للنص الصغير، وفوق الحبر العميق يقفز إلى 6.5:1 —
+              بلون من اللوحة نفسها دون أي انحراف عن الهوية. */}
           <span
-            className="font-mono text-[0.7rem] uppercase text-gold"
-            style={{ letterSpacing: "0.25em" }}
+            className="rounded-full border border-gold/20 bg-abyss/70 px-3 py-1 font-mono text-[0.7rem] uppercase text-gold"
+            style={{ letterSpacing: "0.25em", paddingInlineEnd: "0.5rem" }}
           >
             {eyebrow}
           </span>

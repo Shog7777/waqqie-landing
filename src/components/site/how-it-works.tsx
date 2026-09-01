@@ -32,7 +32,7 @@ export function HowItWorks() {
                     <Icon className="size-6" />
                   </span>
                   <span
-                    className="mb-2 font-mono text-xs text-gold/70 ltr-num"
+                    className="mb-2 font-mono text-xs text-gold ltr-num"
                     style={{ letterSpacing: "0.25em" }}
                   >
                     {step.n}

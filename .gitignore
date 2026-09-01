@@ -46,3 +46,9 @@ lh-*.json
 # ملفات إرشادات يولّدها next dev تلقائيًا
 AGENTS.md
 CLAUDE.md
+
+# اختبارات
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
