@@ -1,165 +1,185 @@
-# وقّع | صفحة الهبوط
+# Waqqie landing page
 
 [![CI](https://github.com/Shog7777/waqqie-landing/actions/workflows/ci.yml/badge.svg)](https://github.com/Shog7777/waqqie-landing/actions/workflows/ci.yml)
 
-صفحة هبوط لتطبيق «وقّع»، وهو تطبيق توقيع إلكتروني عربي. الواجهة عربية بالكامل
-واتجاهها من اليمين إلى اليسار، وألوانها وخطوطها مأخوذة من دليل الهوية البصرية
-الرسمي للعلامة.
+A landing page for Waqqie, an Arabic e-signature app. The whole interface is in
+Arabic and runs right to left, and the colors and typography come from the
+brand's official identity guide.
 
-العرض الحيّ: <https://waqqie-landing.vercel.app>
+Live: https://waqqie-landing.vercel.app
 
-## التشغيل
+## Running it
 
-يحتاج المشروع إلى Node.js 20 أو أحدث.
+You need Node 20 or newer.
 
 ```bash
 npm install
 npm run dev
 ```
 
-ثم افتح <http://localhost:3000>.
+Then open http://localhost:3000.
 
-الأوامر المتاحة:
+Available scripts:
 
 ```
-npm run dev        خادم التطوير
-npm run build      بناء إنتاجي
-npm run start      تشغيل النسخة الإنتاجية
-npm run lint       فحص ESLint
-npm run typecheck  فحص أنواع TypeScript
-npm test           اختبارات الوحدة
-npm run test:e2e   اختبارات المتصفح
-npm run verify     الفحوصات الأربعة معًا
+npm run dev        dev server
+npm run build      production build
+npm run start      serve the production build
+npm run lint       ESLint
+npm run typecheck  TypeScript
+npm test           unit tests
+npm run test:e2e   browser tests
+npm run verify     all four, same as CI
 ```
 
-## التقنيات
+## Stack
 
-**Next.js 16** بنمط App Router. الصفحة كلها ثابتة تُولَّد وقت البناء، بما فيها
-صورة المشاركة الاجتماعية وأيقونات الموقع.
+**Next.js 16** with the App Router. Everything is static and generated at build
+time, including the social share image and the site icons.
 
-**shadcn/ui** فوق Radix، مهيّأة بخيار RTL. المكوّنات منسوخة داخل المشروع لا
-مستوردة من حزمة، فأمكن تلبيسها بألوان الهوية بالكامل.
+**shadcn/ui** on top of Radix, set up with the RTL option. The components live
+inside the repo rather than coming from a package, so I could restyle them
+completely with the brand colors.
 
-**Tailwind CSS v4**. رموز الهوية معرّفة كمتغيّرات CSS داخل `@theme`، فصارت
-`bg-ink` و`text-gold` أدوات جاهزة في كل المشروع.
+**Tailwind CSS v4.** The brand tokens are CSS variables declared inside
+`@theme`, which turns them into real utilities like `bg-ink` and `text-gold`.
 
-**lucide-react** للأيقونات، و**TypeScript** بالوضع الصارم مع **ESLint**.
+**lucide-react** for icons, TypeScript in strict mode, ESLint.
 
-**Vitest** و**Playwright** و**axe-core** للاختبارات.
+**Vitest, Playwright and axe-core** for tests.
 
-لا توجد مكتبة حركة في المشروع. الظهور التدريجي مبني بانتقالات CSS مع مراقب
-`IntersectionObserver` واحد مشترك، وهذا خفّض حجم الجافاسكربت كثيرًا.
+There is no animation library. Scroll reveals are plain CSS transitions driven
+by one shared `IntersectionObserver`, which saved a good chunk of JavaScript.
 
-ولا توجد أي صورة نقطية. الأيقونات ومجسّمات الجوال والتواقيع والأنماط الخلفية
-مبنية كلها بـ SVG وCSS، فتبقى حادة على أي دقة شاشة.
+There are no raster images either. Icons, phone mockups, signatures and
+background patterns are all SVG and CSS, so they stay sharp at any resolution.
 
-## الهوية البصرية
+## Brand tokens
 
-كل ألوان العلامة معرّفة في مكان واحد، [`src/app/globals.css`](src/app/globals.css)،
-ثم تُعيَّن على رموز shadcn حتى ترث كل المكوّنات الهوية تلقائيًا:
+Every brand color is declared once, in
+[`src/app/globals.css`](src/app/globals.css), and then mapped onto the shadcn
+tokens so all the components inherit the identity automatically:
 
 ```css
---wq-ink:      #0F4C5C;  /* الخلفية الأساسية */
---wq-card:     #163E48;  /* البطاقات والأسطح */
---wq-gold:     #D4A24E;  /* التمييز */
---wq-ivory:    #FAF8F4;  /* النص */
---wq-whatsapp: #25D366;  /* زر واتساب فقط */
+--wq-ink:      #0F4C5C;  /* main background */
+--wq-card:     #163E48;  /* cards and surfaces */
+--wq-gold:     #D4A24E;  /* accent */
+--wq-ivory:    #FAF8F4;  /* text */
+--wq-whatsapp: #25D366;  /* WhatsApp button only */
 ```
 
-القواعد المطبّقة من الدليل: توزيع 60–30–10 بين الخلفية والأسطح والذهبي، حصر
-الأخضر في سياق واتساب وحده، الامتناع عن الأبيض الخالص واستخدام Warm Ivory
-بدلًا منه، وزوايا دائرية بين 8 و12 بكسل. أما اللمسة الخطية الاحتفالية فتظهر
-مرة واحدة فقط في المشروع كله، في عبارة «تم التوقيع بنجاح» داخل شاشة النجاح،
-التزامًا بقاعدة الدليل التي تمنع تكرارها.
+The guide also comes with rules, not just colors. The ones I followed: a 60/30/10
+split between background, surfaces and gold; green is not allowed anywhere
+outside the WhatsApp context; no pure white, Warm Ivory instead; corner radius
+between 8 and 12 pixels. There is also a calligraphic accent font that the guide
+says must appear exactly once in the whole product, so it shows up only in the
+success screen mockup.
 
-### الخطوط
+That last rule is why the store badges are monochrome. The official Google Play
+badge is green, and green is reserved.
 
-يحدّد الدليل خط 29LT Azat للعناوين، وهو خط تجاري مرخّص لا يجوز توزيعه عبر
-الويب. لذلك تستخدم العناوين IBM Plex Sans Arabic بوزن 700، وهو خط معتمد أصلًا
-داخل نظام الهوية نفسه. عند توفّر الترخيص يكفي تبديل سطر واحد في
-[`layout.tsx`](src/app/layout.tsx).
+### Fonts
 
-## بنية المشروع
+The guide specifies 29LT Azat for headings. It's a commercial font and there is
+no web license for it here, so headings use IBM Plex Sans Arabic at weight 700,
+which is already part of the same type system. If the license ever shows up,
+swapping it back is one line in [`layout.tsx`](src/app/layout.tsx).
+
+## Project structure
 
 ```
-.github/workflows/ci.yml   الفحوصات على كل دفعة
-e2e/                       اختبارات Playwright
+.github/workflows/ci.yml   checks that run on every push
+e2e/                       Playwright tests
 src/
-  app/                     التخطيط، الصفحة، صور OG، robots، sitemap، 404
+  app/                     layout, page, OG image, robots, sitemap, 404
   components/
-    brand/                 الشعار، الأنماط، إطار الجوال، شاشات التطبيق، الختم
-    site/                  أقسام الصفحة
-    motion/                غلاف الظهور التدريجي
-    ui/                    مكوّنات shadcn/ui
-  hooks/                   تمييز القسم الحالي في الترويسة
-  lib/                     النصوص، تنسيق الأرقام والتواريخ، عنوان النشر
+    brand/                 logo, patterns, phone frame, app screens, date stamp
+    site/                  page sections
+    motion/                scroll reveal wrapper
+    ui/                    shadcn/ui components
+  hooks/                   active section tracking in the header
+  lib/                     copy, number and date formatting, deployment URL
 ```
 
-كل نص عربي في الصفحة يمرّ من [`src/lib/content.ts`](src/lib/content.ts)، فتعديل
-أي عبارة لا يحتاج فتح أي مكوّن.
+All the Arabic copy lives in [`src/lib/content.ts`](src/lib/content.ts), so
+changing a sentence never means opening a component.
 
-## تفاصيل تستحق الذكر
+## A few details worth pointing out
 
-مجسّمات الجوال خمس شاشات كاملة (الرئيسية، الماسح، لوحة التوقيع، الختم، شاشة
-النجاح) مبنية بـ HTML وCSS.
+The phone mockups are five full app screens (home, scanner, signing pad, date
+stamp, success) built with HTML and CSS.
 
-ختم التاريخ في قسم المميزات تفاعلي فعلًا: يبدّل الزائر بين التقويم الهجري
-والميلادي، وبين الأرقام الغبارية والمشرقية، فيرى الختم يتغيّر أمامه.
+The date stamp in the features section is actually interactive. You can switch
+between the Hijri and Gregorian calendars and between Eastern and Western Arabic
+numerals, and the stamp updates as you do. The sample date is a fixed constant
+rather than `new Date()`, because the page is rendered on the server first and a
+live date would produce a hydration mismatch.
 
-دعم RTL مبني على الخصائص المنطقية (`start` و`end` و`ps` و`pe`) لا على قيم يمين
-ويسار ثابتة، مع ضبط اتجاه Embla في المعرض، و`DirectionProvider` لمكوّنات Radix،
-وعزل ثنائي الاتجاه للأرقام والطوابع الزمنية داخل النص العربي.
+RTL support is built on logical properties (`start`, `end`, `ps`, `pe`) instead
+of hardcoded left and right, plus Embla's direction option for the carousel, a
+`DirectionProvider` for the Radix components, and bidi isolation for numbers and
+timestamps sitting inside Arabic sentences.
 
-## الاختبارات
+## Tests
 
 ```bash
 npm run verify
 ```
 
-سبعة وستون اختبارًا تعمل على كل دفعة عبر GitHub Actions. سبعة عشر منها اختبارات
-وحدة بـ Vitest تغطّي تحويل الأرقام وتنسيق الختم واشتقاق عنوان النشر، والخمسون
-الباقية اختبارات متصفح بـ Playwright تعمل على مقاسي حاسوب وجوال.
+67 tests run on every push through GitHub Actions. 17 of them are Vitest unit
+tests covering numeral conversion, stamp formatting and how the deployment URL
+is resolved. The other 50 are Playwright browser tests running on both a desktop
+and a mobile viewport.
 
-اختبارات المتصفح تعمل على نسخة الإنتاج لا على خادم التطوير، لأن التوليد الثابت
-وتقسيم الحزم وتوليد صور OG لا يحدث شيء منها في `next dev`.
+The browser tests run against the production build rather than the dev server,
+since static generation, bundle splitting and OG image generation don't happen in
+`next dev` at all.
 
-ما تغطّيه: فحص `axe-core` للوصولية بمعايير WCAG 2.1 مستوى A وAA على الصفحة
-الرئيسية وصفحة 404 والقائمة الجانبية، وسلوك ختم التاريخ والمعرض والأكورديون
-وشريط التحميل السفلي، وغياب التمرير الأفقي عند خمسة عروض من 320 إلى 1440 بكسل،
-وصحة الروابط المطلقة وصورة المشاركة.
+What they cover: an `axe-core` accessibility scan against WCAG 2.1 A and AA on
+the home page, the 404 page and the open mobile menu; the behaviour of the date
+stamp, the carousel, the accordion and the sticky mobile CTA; no horizontal
+overflow at five widths from 320px to 1440px; and that the absolute URLs and the
+share image actually resolve.
 
-## الأداء والوصولية
+Writing these after the page was finished turned up three real bugs, which is
+mostly why they're here.
 
-فحص `axe-core` يعود بصفر مخالفات، وهو شرط لنجاح CI.
+## Performance and accessibility
 
-في Lighthouse على النشر الحيّ: الوصولية وأفضل الممارسات وSEO تحقّق 100 على
-الجوال والحاسوب. الأداء بين 99 و100 على الحاسوب، ويتذبذب على الجوال بين 72 و96
-حسب انشغال جهاز القياس نفسه، لأن الدرجة تعتمد على مقياس TBT وهو يقيس الخيط
-الرئيسي في الجهاز الفاحص. للتحقّق المستقل يمكن تشغيل
+The `axe-core` scan reports zero violations, and CI fails if that changes.
+
+Lighthouse against the live deployment: accessibility, best practices and SEO all
+hit 100 on both mobile and desktop. Performance sits between 99 and 100 on
+desktop. On mobile it moves around between 72 and 96 depending on how busy the
+machine running the audit is, since the score leans heavily on TBT and TBT
+measures the main thread of the auditing machine. If you want a number that
+doesn't depend on my laptop,
 [PageSpeed Insights](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fwaqqie-landing.vercel.app)
-الذي يقيس من خوادم Google.
+runs it from Google's servers.
 
-قياس ثابت في كل الجولات: LCP بين 2.6 و3.0 ثانية على الجوال و0.7 على الحاسوب،
-وCLS صفر.
+The numbers that stayed the same across every run: LCP between 2.6 and 3.0
+seconds on mobile and 0.7 on desktop, and CLS of zero.
 
-## النشر
+## Deployment
 
-المشروع منشور على Vercel بربط المستودع مباشرة، بالإعدادات الافتراضية لـ Next.js
-ودون متغيّرات بيئة.
+Deployed on Vercel by connecting the repo, with the default Next.js settings and
+no environment variables.
 
-الروابط المطلقة (canonical وصورة OG وsitemap) تُشتق وقت البناء من
-`VERCEL_PROJECT_PRODUCTION_URL` عبر [`getBaseUrl`](src/lib/site-url.ts)، لأن نطاق
-العلامة `waqqie.sa` غير مُشغَّل بعد وتثبيته في الميتاداتا كان يجعل معاينة
-المشاركة مكسورة. عند تفعيل النطاق الحقيقي يكفي ضبط `NEXT_PUBLIC_SITE_URL`.
+The absolute URLs (canonical, OG image, sitemap) are derived at build time from
+`VERCEL_PROJECT_PRODUCTION_URL` through [`getBaseUrl`](src/lib/site-url.ts). The
+brand domain `waqqie.sa` isn't live yet, and hardcoding it into the metadata was
+producing a broken preview when the link was shared. Once the real domain is
+running, setting `NEXT_PUBLIC_SITE_URL` is enough.
 
-## ملاحظة على المحتوى
+## A note on the content
 
-تطبيق «وقّع» لم يُطلق بعد، ولذلك لم تُختلق أي أرقام تحميلات أو تقييمات متاجر.
-قسم إشارات الثقة يعرض خصائص المنتج الموثّقة في وثيقة التعريف. وآراء المستخدمين
-نماذج توضيحية تمثّل شرائح الاستخدام المستهدفة، وهذا مذكور صراحة في تذييل
-الصفحة. روابط المتاجر وسياسة الخصوصية وشروط الاستخدام عناصر نائبة في انتظار
-الروابط الحقيقية.
+Waqqie hasn't launched, so there are no invented download counts or store
+ratings anywhere on the page. The trust section shows product characteristics
+documented in the product brief instead. The testimonials are illustrative
+personas representing the target user groups, and the page footer says so. Store
+links, privacy policy and terms are placeholders waiting for the real ones.
 
-## المصادر
+## Sources
 
-وثيقة تعريف المنتج، ومستند اختبار القبول، ودليل الهوية البصرية v1.0 لعام 2026.
+The product brief, the assignment document, and the Waqqie brand identity guide
+v1.0 (2026).
