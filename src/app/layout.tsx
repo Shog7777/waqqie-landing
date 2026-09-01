@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { Aref_Ruqaa, IBM_Plex_Sans_Arabic, JetBrains_Mono } from "next/font/google";
 
@@ -83,7 +84,9 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+// نوع صريح لا `LayoutProps` المولَّد: الأخير لا يوجد إلا بعد `next build`،
+// فيفشل `tsc --noEmit` في بيئة نظيفة قبل أول بناء (كشفه CI).
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="ar"
