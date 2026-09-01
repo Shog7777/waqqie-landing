@@ -4,25 +4,70 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
+/* ------------------------------------------------------------------ */
+/* مراقب مشترك واحد لكل عناصر الصفحة بدل مراقب لكل عنصر                 */
+/* ------------------------------------------------------------------ */
+
 /**
- * مراقب واحد مشترك لكل عناصر الصفحة بدل مراقب لكل عنصر.
- * يُنشأ عند أول استخدام فقط، ويتوقّف عن مراقبة العنصر بمجرد ظهوره.
+ * العناصر التي لم تظهر بعد. نحتفظ بها لأن `IntersectionObserver` وحده
+ * لا يكفي: عند التمرير السريع قد يقفز العنصر من أسفل الشاشة إلى أعلاها
+ * بين إطارين، فلا يتقاطع مع الشاشة في أي لقطة ولا يُطلق المراقب أي حدث —
+ * ويبقى العنصر مخفيًا للأبد. الحارس أدناه يعالج هذه الحالة.
  */
-let sharedObserver: IntersectionObserver | null = null;
+const pending = new Set<Element>();
+
+let observer: IntersectionObserver | null = null;
+let guardAttached = false;
+let frame = 0;
+
+function show(el: Element) {
+  el.classList.add("is-visible");
+  pending.delete(el);
+  observer?.unobserve(el);
+  if (pending.size === 0) detachGuard();
+}
+
+/** يُظهر أي عنصر تجاوزته الشاشة فعلًا دون أن يلتقطه المراقب. */
+function sweep() {
+  frame = 0;
+  for (const el of pending) {
+    if (el.getBoundingClientRect().bottom < 0) show(el);
+  }
+}
+
+function onScroll() {
+  frame ||= requestAnimationFrame(sweep);
+}
+
+function attachGuard() {
+  if (guardAttached) return;
+  guardAttached = true;
+  window.addEventListener("scroll", onScroll, { passive: true });
+}
+
+function detachGuard() {
+  if (!guardAttached) return;
+  guardAttached = false;
+  window.removeEventListener("scroll", onScroll);
+  if (frame) {
+    cancelAnimationFrame(frame);
+    frame = 0;
+  }
+}
 
 function getObserver() {
-  sharedObserver ??= new IntersectionObserver(
-    (entries, obs) => {
+  observer ??= new IntersectionObserver(
+    (entries) => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-visible");
-        obs.unobserve(entry.target);
+        if (entry.isIntersecting) show(entry.target);
       }
     },
     { rootMargin: "-80px" },
   );
-  return sharedObserver;
+  return observer;
 }
+
+/* ------------------------------------------------------------------ */
 
 type RevealProps = {
   children: ReactNode;
@@ -39,11 +84,6 @@ type RevealProps = {
  * سوى إضافة صنف واحد. استبدال `motion` بهذا خفّض حجم الجافاسكربت
  * وأزال ترطيب عشرات المكوّنات التفاعلية التي كانت تؤخّر أول رسم.
  *
- * حالتان تُعالَجان عند التركيب:
- * 1) العنصر ظاهر أصلًا أو تجاوزته الشاشة (قفزة عبر رابط داخلي أو تمرير سريع)
- *    → يظهر فورًا، فلا يبقى محتوى مخفيًا للأبد.
- * 2) غير ذلك → يُسلَّم للمراقب المشترك.
- *
  * ومع تعطيل JS، يُلغي `<noscript>` في التخطيط إخفاء العناصر بالكامل.
  */
 export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
@@ -55,14 +95,21 @@ export function Reveal({ children, delay = 0, className, as = "div" }: RevealPro
     const el = ref.current;
     if (!el) return;
 
+    // ظاهر أصلًا عند التركيب (أو تجاوزته الشاشة) → يظهر فورًا.
     if (el.getBoundingClientRect().top < window.innerHeight) {
       el.classList.add("is-visible");
       return;
     }
 
-    const observer = getObserver();
-    observer.observe(el);
-    return () => observer.unobserve(el);
+    pending.add(el);
+    getObserver().observe(el);
+    attachGuard();
+
+    return () => {
+      pending.delete(el);
+      observer?.unobserve(el);
+      if (pending.size === 0) detachGuard();
+    };
   }, []);
 
   return (

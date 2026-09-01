@@ -19,14 +19,28 @@ export function useActiveSection(ids: readonly string[]) {
 
     if (sections.length === 0) return;
 
+    // المراقب يُبلّغ عن الأقسام المتغيّرة فقط لا عن كلها، فلو قارنّا داخل
+    // الدفعة وحدها لاختير قسمٌ دخل للتوّ على قسمٍ يغطّي الشاشة أكثر منه.
+    // لذا نحتفظ بآخر نسبة تغطية لكل قسم ونقارن بينها جميعًا.
+    const ratios = new Map<string, number>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length === 0) return;
-        const top = visible.reduce((a, b) =>
-          a.intersectionRatio >= b.intersectionRatio ? a : b,
-        );
-        setActive(top.target.id);
+        for (const entry of entries) {
+          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        }
+
+        let bestId: string | null = null;
+        let bestRatio = 0;
+        for (const [id, ratio] of ratios) {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        }
+
+        // لا قسم داخل النطاق (بين قسمين) → نُبقي التمييز على آخر قسم.
+        if (bestId) setActive(bestId);
       },
       { rootMargin: "-25% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] },
     );

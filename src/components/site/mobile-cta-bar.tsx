@@ -19,14 +19,31 @@ export function MobileCtaBar() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
+    // `offsetHeight` قراءة تُجبر المتصفح على إعادة حساب التخطيط. حسابها داخل
+    // معالج التمرير يعني إعادة حساب عند كل حدث تمرير — لذا تُقاس مرة واحدة
+    // وتُعاد فقط عند تغيّر أبعاد الشاشة.
+    let threshold = 600;
+
+    const measure = () => {
       const hero = document.getElementById("download");
-      const threshold = hero ? hero.offsetHeight * 0.75 : 600;
-      setVisible(window.scrollY > threshold);
+      if (hero) threshold = hero.offsetHeight * 0.75;
     };
+
+    const onScroll = () => setVisible(window.scrollY > threshold);
+
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   return (
