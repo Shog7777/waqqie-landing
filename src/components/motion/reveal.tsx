@@ -18,7 +18,7 @@ const pending = new Set<Element>();
 
 let observer: IntersectionObserver | null = null;
 let guardAttached = false;
-let frame = 0;
+let timer: ReturnType<typeof setTimeout> | undefined;
 
 function show(el: Element) {
   el.classList.add("is-visible");
@@ -27,16 +27,24 @@ function show(el: Element) {
   if (pending.size === 0) detachGuard();
 }
 
-/** يُظهر أي عنصر تجاوزته الشاشة فعلًا دون أن يلتقطه المراقب. */
+/**
+ * يُظهر أي عنصر تجاوزته الشاشة فعلًا دون أن يلتقطه المراقب.
+ *
+ * يعمل **بعد توقّف التمرير** لا أثناءه: `getBoundingClientRect` تُجبر
+ * المتصفح على إعادة حساب التخطيط، وتنفيذها لعشرات العناصر في كل إطار
+ * تمرير يخنق الخيط الرئيسي (قِيس ارتفاع TBT من 110ms إلى 600ms قبل هذا).
+ * التأجيل غير مرئي للمستخدم لأن العناصر المقصودة خرجت من الشاشة أصلًا.
+ */
 function sweep() {
-  frame = 0;
-  for (const el of pending) {
+  timer = undefined;
+  for (const el of [...pending]) {
     if (el.getBoundingClientRect().bottom < 0) show(el);
   }
 }
 
 function onScroll() {
-  frame ||= requestAnimationFrame(sweep);
+  if (timer) clearTimeout(timer);
+  timer = setTimeout(sweep, 150);
 }
 
 function attachGuard() {
@@ -49,9 +57,9 @@ function detachGuard() {
   if (!guardAttached) return;
   guardAttached = false;
   window.removeEventListener("scroll", onScroll);
-  if (frame) {
-    cancelAnimationFrame(frame);
-    frame = 0;
+  if (timer) {
+    clearTimeout(timer);
+    timer = undefined;
   }
 }
 
