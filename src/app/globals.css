@@ -192,6 +192,23 @@
     background-size: 48px 48px;
     opacity: 0.05;
   }
+  /* ورق مسطّر: نسيج المستند، بديل نمط النقاط العام */
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--wq-ivory) 5%, transparent) 0 1px,
+      transparent 1px 34px
+    );
+  }
+
+  /* الخط الشعري: أداة البناء الأساسية في هذا التصميم بدل حدود البطاقات */
+  .hairline {
+    border-color: color-mix(in oklab, var(--wq-ivory) 12%, transparent);
+  }
+  .hairline-gold {
+    border-color: color-mix(in oklab, var(--wq-gold) 32%, transparent);
+  }
+
   /* فاصل ذهبي متدرّج */
   .gold-divider {
     background: linear-gradient(
@@ -206,11 +223,6 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-  }
-  .glass {
-    background: color-mix(in oklab, var(--wq-abyss) 72%, transparent);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
   }
   .shadow-gold {
     box-shadow:

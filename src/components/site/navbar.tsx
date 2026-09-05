@@ -34,7 +34,9 @@ export function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "glass border-b border-ivory/10 py-2" : "border-b border-transparent py-4",
+        scrolled
+          ? "border-b hairline bg-abyss py-2"
+          : "border-b border-transparent py-4",
       )}
     >
       <nav

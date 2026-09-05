@@ -1,59 +1,33 @@
 import { Reveal } from "@/components/motion/reveal";
 import { trustBadges } from "@/lib/content";
 
-const brandWords = [
-  "عربي أوّلًا",
-  "RTL أصيل",
-  "واتساب-متكامل",
-  "تصميم دقيق",
-  "سرعة الجوال",
-  "خصوصية على الجهاز",
-  "رؤية 2030",
-];
-
+/**
+ * شريط ترويسة على هيئة رأس مستند رسمي: شريط ذهبي رفيع فوقه، ثم أربعة حقول
+ * مفصولة بخطوط شعرية. القيم عند 1.6rem فأكثر حتى يتجاوز الذهبي عتبة التباين
+ * الخاصة بالنص الكبير فوق الحبر.
+ */
 export function TrustBar() {
   return (
-    <section aria-label="ما يميّز وقّع" className="relative border-y border-ivory/10 bg-abyss/40">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <dl className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
+    <section aria-label="ما يميّز وقّع" className="relative bg-abyss">
+      <span aria-hidden className="block h-[3px] w-full bg-gold" />
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <dl className="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
           {trustBadges.map((b, i) => (
             <Reveal
               key={b.label}
-              delay={i * 0.07}
-              className="flex flex-col gap-1.5 border-e border-ivory/10 pe-6 last:border-e-0 max-lg:[&:nth-child(2n)]:border-e-0"
+              delay={i * 0.06}
+              className="flex flex-col gap-2 border-t hairline pt-4 lg:border-t-0 lg:border-e lg:pe-8 lg:pt-0 lg:last:border-e-0"
             >
-              <dt className="text-xl font-bold text-gold ltr-num sm:text-2xl">{b.value}</dt>
-              <dd className="flex flex-col gap-1.5">
+              <dt className="font-mono text-[1.6rem] font-semibold leading-tight text-gold ltr-num">
+                {b.value}
+              </dt>
+              <dd className="flex flex-col gap-1">
                 <span className="text-sm font-medium text-ivory">{b.label}</span>
                 <span className="text-xs leading-relaxed text-ivory/65">{b.hint}</span>
               </dd>
             </Reveal>
           ))}
         </dl>
-      </div>
-
-      {/* شريط كلمات الهوية */}
-      {/* الشريط نفسه يسير من اليسار إلى اليمين، لذا يُثبّت اتجاهه LTR
-          حتى لا يبدأ محتواه خارج الشاشة داخل صفحة RTL. */}
-      <div
-        dir="ltr"
-        className="relative overflow-hidden border-t border-ivory/10 py-3 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
-      >
-        <div className="flex w-max motion-safe:animate-marquee">
-          {[0, 1].map((copy) => (
-            <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
-              {brandWords.map((w) => (
-                <li
-                  key={w}
-                  className="flex items-center gap-6 whitespace-nowrap px-6 text-sm text-ivory/65"
-                >
-                  <span className="size-1 rounded-full bg-gold/60" />
-                  {w}
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -45,6 +45,7 @@ export const trustBadges = [
  */
 export const sections = {
   features: {
+    num: "٠١",
     eyebrow: "Features",
     titleLead: "كل ما تحتاجه لتوقيع وثيقة،",
     titleAccent: "ولا شيء زائد",
@@ -52,6 +53,7 @@ export const sections = {
       "ستّ قدرات مبنية حول سؤال واحد: كيف نُنهي التوقيع بأقل عدد ممكن من الخطوات، دون أن يغادر المستند جهازك؟",
   },
   how: {
+    num: "٠٢",
     eyebrow: "How it works",
     titleLead: "أربع خطوات،",
     titleAccent: "أقل من دقيقة",
@@ -59,6 +61,7 @@ export const sections = {
       "من الورقة على الطاولة إلى ملف موقّع في محادثة واتساب — دون أن تغادر جوالك.",
   },
   showcase: {
+    num: "٠٣",
     eyebrow: "App showcase",
     titleLead: "خمس شاشات،",
     titleAccent: "رحلة واحدة",
@@ -66,6 +69,7 @@ export const sections = {
       "واجهة عربية مبنية من اليمين إلى اليسار — لا نسخة معكوسة عن تصميم إنجليزي.",
   },
   pricing: {
+    num: "٠٤",
     eyebrow: "Pricing",
     titleLead: "ابدأ مجانًا، وارتقِ",
     titleAccent: "حين تحتاج",
@@ -73,12 +77,14 @@ export const sections = {
       "الباقة الأساسية تكفي للاستخدام اليومي. Pro لمن يوقّع كثيرًا ويحتاج أدوات أوسع.",
   },
   testimonials: {
+    num: "٠٥",
     eyebrow: "Testimonials",
     titleLead: "أشخاص يوقّعون يوميًا،",
     titleAccent: "بلا طابعة ولا انتظار",
     description: "نماذج استخدام واقعية من الفئات التي بُني وقّع لأجلها.",
   },
   faq: {
+    num: "٠٦",
     eyebrow: "FAQ",
     titleLead: "أسئلة يطرحها",
     titleAccent: "أغلب المستخدمين",

@@ -50,7 +50,7 @@ export function MobileCtaBar() {
     <div
       inert={!visible}
       className={cn(
-        "glass fixed inset-x-0 bottom-0 z-40 border-t border-ivory/10 sm:hidden",
+        "fixed inset-x-0 bottom-0 z-40 border-t hairline bg-abyss sm:hidden",
         "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
         visible ? "translate-y-0" : "translate-y-full",
       )}

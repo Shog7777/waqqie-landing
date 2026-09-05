@@ -1,54 +1,79 @@
 import { FileCheck2, ShieldCheck, WifiOff } from "lucide-react";
 
-import { GoldGlow, GridPattern, NodePattern } from "@/components/brand/pattern";
 import { PhoneFrame } from "@/components/brand/phone-frame";
-import { SignScreen, WhatsAppGlyph } from "@/components/brand/screens";
+import { SignScreen } from "@/components/brand/screens";
+import { SignatureMark } from "@/components/brand/signature-mark";
 import { StoreBadges } from "@/components/brand/store-badges";
 import { Rise } from "@/components/motion/rise";
 import { hero, ui } from "@/lib/content";
+import { formatStamp } from "@/lib/format";
 
 const proofIcons = [ShieldCheck, WifiOff, FileCheck2];
 
+/** التاريخ في كتلة التوقيع بالتقويم الهجري والأرقام المشرقية، كبقية الصفحة. */
+const signedOn = formatStamp("hijri", "eastern");
+
 export function Hero() {
   return (
-    <section
-      id="download"
-      className="relative overflow-hidden pb-20 pt-32 sm:pb-28 sm:pt-40"
-    >
-      <GridPattern className="opacity-70" />
-      <NodePattern className="h-[55%] opacity-60" />
-      <GoldGlow className="start-[-10%] top-[-12%] size-[520px]" />
-      <GoldGlow className="bottom-[-30%] end-[-5%] size-[420px] opacity-60" />
+    <section id="download" className="relative overflow-hidden pt-32 sm:pt-40">
+      {/* نسيج ورق مسطّر بدل نمط النقاط العام */}
+      <div aria-hidden className="ruled pointer-events-none absolute inset-0 opacity-60" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[70%] bg-[radial-gradient(120%_80%_at_70%_0%,color-mix(in_oklab,var(--wq-gold)_9%,transparent),transparent_70%)]"
+      />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
-        {/* النص */}
-        <div className="flex flex-col items-start gap-7">
+      <div className="relative mx-auto grid max-w-6xl items-end gap-y-16 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-x-10">
+        <div className="flex flex-col items-start pb-20 sm:pb-28">
           <Rise>
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold/35 bg-gold/8 px-4 py-1.5 text-xs text-gold">
-              <WhatsAppGlyph className="size-3.5 text-whatsapp" />
-              {hero.eyebrow}
-            </span>
+            <p className="flex items-center gap-3">
+              <span aria-hidden className="h-px w-10 bg-gold" />
+              <span
+                className="font-mono text-[0.66rem] uppercase text-ivory/70"
+                style={{ letterSpacing: "0.26em" }}
+              >
+                {hero.eyebrow}
+              </span>
+            </p>
           </Rise>
 
           {/* العنوان والنص الفرعي بلا حركة دخول عمدًا: أي عنصر يبدأ بشفافية صفر
-              يُستبعد من قياس LCP حتى يظهر، وهذان أكبر نصّين في الصفحة —
-              فيُرسمان مع أول رسم بدل انتظار انتهاء الحركة. */}
-          <h1 className="text-4xl font-bold leading-[1.18] text-ivory sm:text-5xl lg:text-[3.4rem]">
+              يُستبعد من قياس LCP حتى يظهر، وهذان أكبر نصّين في الصفحة. */}
+          <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.2] text-ivory sm:text-[3.2rem] lg:text-[3.6rem]">
             {hero.titleLead}
-            <span className="mx-2 text-gold/40">—</span>
-            <span className="whitespace-nowrap text-gradient-gold">{hero.titleAccent}</span>
+            <br />
+            <span className="text-gold">{hero.titleAccent}</span>
           </h1>
 
-          <p className="max-w-xl text-base leading-[2] text-ivory/70 sm:text-lg">
+          {/* سطر التوقيع: التوقيع يُرسم فوق الخط، والاسم والتاريخ تحته —
+              كتلة التوقيع نفسها في أي عقد رسمي. */}
+          <Rise delay={0.12}>
+            <div className="mt-8 w-[min(22rem,100%)]">
+              <SignatureMark
+                color="var(--wq-gold)"
+                strokeWidth={2.5}
+                className="h-16 translate-y-1"
+              />
+              <div className="border-b hairline-gold" />
+              <div className="mt-2 flex items-baseline justify-between font-mono text-[0.62rem] text-ivory/60">
+                <span style={{ letterSpacing: "0.24em" }}>WAQQIE</span>
+                <span className="ltr-num">
+                  {signedOn.numeric} {signedOn.suffix}
+                </span>
+              </div>
+            </div>
+          </Rise>
+
+          <p className="mt-9 max-w-[46ch] text-base leading-[2] text-ivory/70 sm:text-[1.05rem]">
             {hero.subtitle}
           </p>
 
           <Rise delay={0.18}>
-            <StoreBadges />
+            <StoreBadges className="mt-9" />
           </Rise>
 
-          <Rise delay={0.24}>
-            <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Rise delay={0.24} className="mt-9 w-full">
+            <ul className="flex flex-wrap items-center gap-x-7 gap-y-3 border-t hairline pt-5">
               {ui.heroProof.map((text, i) => {
                 const Icon = proofIcons[i];
                 return (
@@ -62,31 +87,11 @@ export function Hero() {
           </Rise>
         </div>
 
-        {/* المجسّم */}
-        <Rise delay={0.2} className="flex justify-center">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--wq-gold)_14%,transparent),transparent_65%)]"
-            />
-
-            <div className="motion-safe:animate-float">
-              <PhoneFrame label="شاشة التوقيع في تطبيق وقّع">
-                <SignScreen />
-              </PhoneFrame>
-            </div>
-
-            {/* بطاقات طافية تُلخّص القيمة */}
-            <div className="absolute -top-4 start-6 hidden rounded-xl border border-ivory/12 bg-abyss px-3 py-2 shadow-lg sm:block">
-              <p className="font-mono text-[0.55rem] text-gold ltr-num">#WQ-0042</p>
-              <p className="text-[0.7rem] text-ivory/70">عقد إيجار — الرياض</p>
-            </div>
-
-            <div className="absolute -end-4 bottom-28 hidden items-center gap-2 rounded-xl border border-whatsapp/30 bg-abyss px-3 py-2 sm:flex">
-              <WhatsAppGlyph className="size-4 text-whatsapp" />
-              <span className="text-[0.7rem] text-ivory/75">أُرسل في المحادثة</span>
-            </div>
-          </div>
+        {/* المجسّم مُحاذى لأسفل القسم فيلامس حافّته، بدل توسيطه في مربّع متساوٍ */}
+        <Rise delay={0.2} className="flex justify-center lg:justify-end">
+          <PhoneFrame label="شاشة التوقيع في تطبيق وقّع" className="translate-y-px">
+            <SignScreen />
+          </PhoneFrame>
         </Rise>
       </div>
     </section>

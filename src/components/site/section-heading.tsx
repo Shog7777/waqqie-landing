@@ -2,10 +2,15 @@ import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
 
 /**
- * ترويسة قسم موحّدة — تسمية تقنية بخط JetBrains Mono متبوعة بخط ذهبي متلاشٍ،
- * وهو نفس نمط `.sec` في دليل الهوية الرسمي.
+ * ترويسة قسم على هيئة علامة فصل في مستند رسمي: رقم البند في الهامش، وخط
+ * شعري يمتدّ إلى آخر العمود، ثم العنوان.
+ *
+ * لماذا الرقم ذهبي والعنوان عاجي: الذهبي فوق Deep Ink Teal يعطي 4.11:1، وهي
+ * نسبة كافية للنص الكبير (عتبة 3:1) لا للصغير. الرقم عند 1.6rem بوزن عريض
+ * يتجاوزها بأمان، بينما يبقى نص العنوان والوصف عاجيًا عند 8.96:1.
  */
 export function SectionHeading({
+  num,
   eyebrow,
   titleLead,
   titleAccent,
@@ -13,44 +18,48 @@ export function SectionHeading({
   align = "start",
   className,
 }: {
+  /** رقم البند كما يظهر في الهامش */
+  num: string;
+  /** تسمية الفصل اللاتينية */
   eyebrow: string;
-  /** الجزء العادي من العنوان */
   titleLead: string;
-  /** الجزء المميّز بالتدرّج الذهبي */
   titleAccent: string;
   description?: string;
   align?: "start" | "center";
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-4",
-        align === "center" ? "items-center text-center" : "items-start",
-        className,
-      )}
-    >
+    <div className={cn("flex flex-col", className)}>
       <Reveal>
-        <span className="flex items-center gap-3">
-          {/* رقاقة داكنة خلف التسمية: الذهبي فوق Deep Ink Teal يعطي 4.11:1 وهو
-              دون عتبة AA للنص الصغير، وفوق الحبر العميق يقفز إلى 6.5:1 —
-              بلون من اللوحة نفسها دون أي انحراف عن الهوية. */}
+        <div
+          className={cn(
+            "flex items-baseline gap-4 border-b hairline-gold pb-3",
+            align === "center" && "justify-center",
+          )}
+        >
           <span
-            className="rounded-full border border-gold/20 bg-abyss/70 px-3 py-1 font-mono text-[0.7rem] uppercase text-gold"
-            style={{ letterSpacing: "0.25em", paddingInlineEnd: "0.5rem" }}
+            className="font-mono text-[1.6rem] font-semibold leading-none text-gold ltr-num"
+            aria-hidden
+          >
+            {num}
+          </span>
+          <span
+            className="font-mono text-[0.68rem] uppercase text-ivory/70"
+            style={{ letterSpacing: "0.28em" }}
           >
             {eyebrow}
           </span>
-          <span
-            aria-hidden
-            className="h-px w-14 bg-[linear-gradient(to_left,color-mix(in_oklab,var(--wq-gold)_60%,transparent),transparent)]"
-          />
-        </span>
+        </div>
       </Reveal>
 
       <Reveal delay={0.06}>
-        <h2 className="max-w-2xl text-3xl font-bold leading-[1.25] text-ivory sm:text-4xl">
-          {titleLead} <span className="text-gradient-gold">{titleAccent}</span>
+        <h2
+          className={cn(
+            "mt-7 max-w-[19ch] text-[1.75rem] font-bold leading-[1.35] text-ivory sm:text-[2.1rem]",
+            align === "center" && "mx-auto max-w-[24ch] text-center",
+          )}
+        >
+          {titleLead} {titleAccent}
         </h2>
       </Reveal>
 
@@ -58,8 +67,8 @@ export function SectionHeading({
         <Reveal delay={0.12}>
           <p
             className={cn(
-              "max-w-2xl text-base leading-relaxed text-ivory/70",
-              align === "center" && "mx-auto",
+              "mt-4 max-w-[52ch] text-base leading-[2] text-ivory/70",
+              align === "center" && "mx-auto text-center",
             )}
           >
             {description}
