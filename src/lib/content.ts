@@ -104,6 +104,7 @@ export const featureExtras = {
     incoming: "ترسل لي العقد موقّع؟",
     fileName: "عقد إيجار — موقّع.pdf",
     fileMeta: "842 KB · 14:32",
+    note: "الأخضر محصور في هذا السياق وحده، كما ينصّ دليل الهوية.",
   },
   uploadsLabel: "UPLOADS",
   uploadsValue: "0",

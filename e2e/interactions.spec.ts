@@ -1,8 +1,24 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+/**
+ * قسم المميزات فهرس ولوح واحد: الختم التفاعلي لا يُركَّب إلا حين تُختار
+ * ميزة «أختام وتواريخ» من الفهرس.
+ */
+async function openStampTab(page: Page) {
+  const tab = page
+    .locator("#features")
+    .getByRole("tab", { name: "أختام وتواريخ بصيغتك أنت" });
+  await tab.scrollIntoViewIfNeeded();
+  await tab.click();
+  await expect(tab).toHaveAttribute("aria-selected", "true");
+}
 
 test.describe("ختم التاريخ التفاعلي", () => {
   test("التبديل بين التقويمين وبين نمطي الأرقام يغيّر الختم مباشرة", async ({ page }) => {
     await page.goto("/");
+
+    // الميزة تُختار من فهرس القسم، ولوحها هو ما يحمل الختم التفاعلي
+    await openStampTab(page);
 
     const stamp = page.locator("#features").getByText(/^[٠-٩0-9]{2}\/[٠-٩0-9]{2}\//).first();
     await stamp.scrollIntoViewIfNeeded();
@@ -26,6 +42,7 @@ test.describe("ختم التاريخ التفاعلي", () => {
 
   test("حالة الأزرار مُعلَنة لقارئ الشاشة", async ({ page }) => {
     await page.goto("/");
+    await openStampTab(page);
     const hijri = page.locator("#features").getByRole("button", { name: "هجري" });
     const gregorian = page.locator("#features").getByRole("button", { name: "ميلادي" });
 
@@ -35,6 +52,31 @@ test.describe("ختم التاريخ التفاعلي", () => {
     await gregorian.click();
     await expect(gregorian).toHaveAttribute("aria-pressed", "true");
     await expect(hijri).toHaveAttribute("aria-pressed", "false");
+  });
+});
+
+test.describe("مستكشف المميزات", () => {
+  test("اختيار ميزة يبدّل اللوح ويعرض وصفها", async ({ page }) => {
+    await page.goto("/");
+    const features = page.locator("#features");
+    await features.scrollIntoViewIfNeeded();
+
+    const tabs = features.getByRole("tab");
+    await expect(tabs).toHaveCount(6);
+    await expect(tabs.first()).toHaveAttribute("aria-selected", "true");
+
+    // لوح واحد معروض في كل لحظة
+    await expect(features.getByRole("tabpanel")).toHaveCount(1);
+    await expect(
+      features.getByText(/أنهِ التوقيع وشارك النسخة الموقّعة/),
+    ).toBeVisible();
+
+    await tabs.nth(1).click();
+    await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+    await expect(tabs.first()).toHaveAttribute("aria-selected", "false");
+    await expect(
+      features.getByText(/الكاميرا تلتقط أطراف الورقة/),
+    ).toBeVisible();
   });
 });
 

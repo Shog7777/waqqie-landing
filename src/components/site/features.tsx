@@ -1,20 +1,36 @@
-import { DateStamp } from "@/components/brand/date-stamp";
-import { WhatsAppGlyph } from "@/components/brand/screens";
+"use client";
+
+import { useState } from "react";
+import { Tabs } from "radix-ui";
+
 import { SectionLight, Surface } from "@/components/brand/surface";
 import { Reveal } from "@/components/motion/reveal";
+import { FeatureStage, type FeatureId } from "@/components/site/feature-stage";
 import { SectionHeading } from "@/components/site/section-heading";
-import { featureExtras, features, sections } from "@/lib/content";
+import { features, sections } from "@/lib/content";
 
 const articles = [
-  { num: "٠١", ...features.whatsapp },
-  { num: "٠٢", ...features.scanner },
-  { num: "٠٣", ...features.signature },
-  { num: "٠٤", ...features.stamp },
-  { num: "٠٥", ...features.privacy },
-  { num: "٠٦", ...features.pages },
-] as const;
+  { id: "whatsapp", num: "٠١", ...features.whatsapp },
+  { id: "scanner", num: "٠٢", ...features.scanner },
+  { id: "signature", num: "٠٣", ...features.signature },
+  { id: "stamp", num: "٠٤", ...features.stamp },
+  { id: "privacy", num: "٠٥", ...features.privacy },
+  { id: "pages", num: "٠٦", ...features.pages },
+] as const satisfies readonly { id: FeatureId; num: string; title: string; body: string }[];
 
+/**
+ * مستكشف المميزات: فهرس على جانب، ومسرح واحد على الجانب الآخر.
+ *
+ * كانت الميزات ستّ بطاقات نصّية متطابقة فوق بعضها، فطال القسم وصار سردًا
+ * يُقرأ لا منتجًا يُرى. الآن الميزة الواحدة تأخذ المساحة كلها حين تُختار،
+ * فانخفض ارتفاع القسم إلى نحو نصفه وربح كل نصّ مشهدًا يثبته.
+ *
+ * التبويبات من Radix: أدوار tablist/tab/tabpanel صحيحة، وتنقّل بالأسهم
+ * يحترم اتجاه الصفحة من اليمين لليسار عبر DirectionProvider.
+ */
 export function Features() {
+  const [active, setActive] = useState<string>(articles[0].id);
+
   return (
     <section id="features" className="relative overflow-hidden bg-abyss py-24 sm:py-32">
       <SectionLight position="end" />
@@ -22,62 +38,79 @@ export function Features() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading {...sections.features} />
 
-        <ol className="mt-14 grid gap-5 md:grid-cols-2">
-          {articles.map((item, i) => (
-            <Reveal as="li" key={item.num} delay={i * 0.05}>
-              <Surface className="h-full p-7">
-                <div className="flex items-baseline gap-4">
+        <Reveal className="mt-12">
+          <Tabs.Root
+            value={active}
+            onValueChange={setActive}
+            orientation="vertical"
+            className="grid items-start gap-4 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-6"
+          >
+            <Tabs.List
+              aria-label={`${sections.features.titleLead} ${sections.features.titleAccent}`}
+              className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0 lg:pb-0"
+            >
+              {articles.map((item) => (
+                <Tabs.Trigger
+                  key={item.id}
+                  value={item.id}
+                  className="group relative flex shrink-0 items-center gap-3.5 rounded-lg px-4 py-3.5 text-start outline-none transition-colors duration-300 hover:bg-card/45 focus-visible:ring-2 focus-visible:ring-gold data-[state=active]:bg-card/75 lg:w-full lg:gap-4"
+                >
                   <span
                     aria-hidden
-                    className="font-mono text-[1.5rem] font-semibold leading-none text-gold ltr-num"
+                    className="absolute inset-y-2.5 start-0 w-[2px] origin-center scale-y-0 rounded-full bg-gold transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-data-[state=active]:scale-y-100"
+                  />
+                  <span
+                    aria-hidden
+                    className="font-mono text-[1.5rem] font-semibold leading-none text-gold/70 transition-colors duration-300 group-data-[state=active]:text-gold ltr-num"
                   >
                     {item.num}
                   </span>
-                  <h3 className="text-[1.05rem] font-semibold text-ivory">{item.title}</h3>
-                </div>
-                <p className="mt-3 text-sm leading-[2] text-ivory/70">{item.body}</p>
-              </Surface>
-            </Reveal>
-          ))}
-        </ol>
-
-        <div className="mt-6 grid gap-5 lg:grid-cols-2">
-          <Reveal>
-            <Surface className="h-full p-7">
-              <p className="mb-5 flex items-center gap-2 text-xs text-ivory/70">
-                <WhatsAppGlyph className="size-3.5 shrink-0 text-whatsapp" />
-                الأخضر محصور في هذا السياق وحده، كما ينصّ دليل الهوية.
-              </p>
-              <div className="flex flex-col gap-2.5">
-                <div className="flex justify-start">
-                  <span className="max-w-[80%] rounded-2xl rounded-ss-sm bg-ivory/8 px-4 py-2.5 text-sm text-ivory/75">
-                    {featureExtras.chat.incoming}
+                  <span className="whitespace-nowrap text-[0.98rem] font-semibold text-ivory/70 transition-colors duration-300 group-data-[state=active]:text-ivory lg:whitespace-normal">
+                    {item.title}
                   </span>
-                </div>
-                <div className="flex justify-end">
-                  <span className="flex max-w-[85%] items-center gap-3 rounded-2xl rounded-se-sm border border-whatsapp/25 bg-whatsapp/10 px-4 py-2.5">
-                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-ivory">
-                      <span className="h-4 w-3 rounded-[2px] bg-ink/70" />
-                    </span>
-                    <span className="flex flex-col leading-tight">
-                      <span className="text-sm text-ivory">{featureExtras.chat.fileName}</span>
-                      <span className="font-mono text-[0.62rem] text-ivory/75 ltr-num">
-                        {featureExtras.chat.fileMeta}
-                      </span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </Surface>
-          </Reveal>
+                </Tabs.Trigger>
+              ))}
+            </Tabs.List>
 
-          <Reveal delay={0.08}>
-            <Surface glow className="h-full p-7">
-              <p className="mb-5 text-xs text-ivory/70">{featureExtras.stampHint}</p>
-              <DateStamp />
-            </Surface>
-          </Reveal>
-        </div>
+            {/* عدّاد يوازن العمود ويقول أين أنت من الستّ */}
+            <p
+              aria-hidden
+              className="hidden items-center gap-4 px-4 lg:order-3 lg:col-start-1 lg:row-start-2 lg:mt-2 lg:flex"
+            >
+              {/* الترتيب بـ flex لا بخوارزمية الاتجاه: الأرقام المشرقية داخل نصّ
+                  عربي تُعاد ترتيبها، فتُقرأ الكسرة مقلوبة لو تُركت نصًّا واحدًا */}
+              <span
+                dir="ltr"
+                className="flex items-baseline gap-1.5 font-mono text-[1.5rem] font-semibold leading-none"
+              >
+                <span className="text-gold">
+                  {articles.find((a) => a.id === active)?.num}
+                </span>
+                <span className="text-gold/70">/</span>
+                <span className="text-gold/70">٠٦</span>
+              </span>
+              <span className="h-px flex-1 bg-[color-mix(in_oklab,var(--wq-gold)_28%,transparent)]" />
+            </p>
+
+            {articles.map((item) => (
+              <Tabs.Content
+                key={item.id}
+                value={item.id}
+                className="outline-none lg:col-start-2 lg:row-span-2 lg:row-start-1"
+              >
+                <Surface className="hover:translate-y-0">
+                  <FeatureStage id={item.id} />
+                  <p
+                    className="stage-in border-t hairline px-5 py-6 text-sm leading-[2] text-ivory/75 sm:px-8"
+                    style={{ animationDelay: "0.18s" }}
+                  >
+                    {item.body}
+                  </p>
+                </Surface>
+              </Tabs.Content>
+            ))}
+          </Tabs.Root>
+        </Reveal>
       </div>
     </section>
   );

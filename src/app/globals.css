@@ -352,6 +352,71 @@
   }
 }
 
+/* ===== مسرح المميزات: كل مشهد دورة قصيرة مستقلة تبدأ من جديد عند اختياره ===== */
+@keyframes stageIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scanRun {
+  0% {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+  12%,
+  76% {
+    opacity: 1;
+  }
+  88%,
+  100% {
+    opacity: 0;
+    transform: translateY(var(--scan-run, 11rem));
+  }
+}
+@keyframes cornerSnap {
+  0%,
+  14% {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+  30%,
+  90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes signLoop {
+  0%,
+  6% {
+    stroke-dashoffset: 560;
+  }
+  58%,
+  86% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 560;
+  }
+}
+@keyframes ringOut {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.52);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -417,6 +482,25 @@
   .fx-step {
     display: inline-block;
     animation: stepGlow 6.4s ease-in-out infinite;
+  }
+
+  /* ===== مسرح المميزات ===== */
+  /* المشهد يُركَّب من جديد عند كل اختيار، فتبدأ حركة الدخول تلقائيًا */
+  .stage-in {
+    animation: stageIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .fx-scan {
+    animation: scanRun 3.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  .fx-corner {
+    animation: cornerSnap 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+  .sig-loop path {
+    stroke-dasharray: 560;
+    animation: signLoop 5.5s ease-in-out infinite;
+  }
+  .fx-ring {
+    animation: ringOut 2.3s ease-out infinite;
   }
 
   /* الخط الذهبي في ترويسة القسم يُرسم عند وصوله للشاشة */
@@ -570,8 +654,16 @@
   .fx-shimmer,
   .fx-line,
   .fx-grid > span,
-  .fx-sweep::after {
+  .fx-sweep::after,
+  .fx-scan,
+  .fx-corner,
+  .fx-ring,
+  .sig-loop path,
+  .stage-in {
     animation: none !important;
+  }
+  .sig-loop path {
+    stroke-dashoffset: 0;
   }
   .fx-shimmer {
     color: var(--wq-gold);
