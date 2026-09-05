@@ -117,6 +117,130 @@
     transform: translateY(-10px);
   }
 }
+/* ===== قصة التوقيع: دورة واحدة مدتها 11 ثانية، كل عنصر يعرف موضعه منها ===== */
+@keyframes seqDoc {
+  0%,
+  4% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+  }
+  11%,
+  93% {
+    opacity: 1;
+    transform: none;
+  }
+  99%,
+  100% {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.99);
+  }
+}
+@keyframes seqScan {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  15% {
+    opacity: 1;
+  }
+  28% {
+    opacity: 1;
+    transform: translateY(var(--scan-travel, 15rem));
+  }
+  32%,
+  100% {
+    opacity: 0;
+    transform: translateY(var(--scan-travel, 15rem));
+  }
+}
+@keyframes seqCorner {
+  0%,
+  24% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+  30%,
+  90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  96%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes seqSign {
+  0%,
+  36% {
+    stroke-dashoffset: 560;
+  }
+  62%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes seqStamp {
+  0%,
+  64% {
+    opacity: 0;
+    transform: scale(1.9) rotate(-26deg);
+  }
+  71% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-9deg);
+  }
+  75%,
+  91% {
+    opacity: 1;
+    transform: scale(1) rotate(-9deg);
+  }
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes seqRing {
+  0%,
+  70% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  73% {
+    opacity: 0.85;
+  }
+  84%,
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+@keyframes seqSent {
+  0%,
+  79% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  85%,
+  92% {
+    opacity: 1;
+    transform: none;
+  }
+  98%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes seqLabel {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  6%,
+  20% {
+    opacity: 1;
+  }
+}
 @keyframes travel {
   0% {
     transform: translateX(-120%);
@@ -241,6 +365,37 @@
 }
 
 @layer utilities {
+  /* عناصر قصة التوقيع، كلها على نفس الدورة فتبقى متزامنة */
+  .seq {
+    animation-duration: 11s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .seq-doc {
+    animation-name: seqDoc;
+  }
+  .seq-scan {
+    animation-name: seqScan;
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+  }
+  .seq-corner {
+    animation-name: seqCorner;
+  }
+  .seq-sign {
+    animation-name: seqSign;
+    animation-timing-function: ease-out;
+  }
+  .seq-stamp {
+    animation-name: seqStamp;
+  }
+  .seq-ring {
+    animation-name: seqRing;
+    animation-timing-function: ease-out;
+  }
+  .seq-sent {
+    animation-name: seqSent;
+  }
+
   /* شعاع يمرّ على الشريط الذهبي */
   .fx-travel {
     animation: travel 5.5s linear infinite;
@@ -298,10 +453,10 @@
   /* ظهور عند التمرير — CSS خالص، وJS يضيف is-visible فقط */
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(34px) scale(0.985);
     transition:
-      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .reveal.is-visible {
     opacity: 1;
@@ -363,6 +518,7 @@
 
 /* احترام تفضيل تقليل الحركة */
 @media (prefers-reduced-motion: reduce) {
+  .seq,
   .fx-drift,
   .fx-travel,
   .fx-pulse,

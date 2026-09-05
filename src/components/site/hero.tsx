@@ -1,4 +1,4 @@
-import { CyclingPhone } from "@/components/brand/cycling-phone";
+import { SigningSequence } from "@/components/brand/signing-sequence";
 import { StoreBadges } from "@/components/brand/store-badges";
 import { hero, ui } from "@/lib/content";
 
@@ -78,28 +78,11 @@ export function Hero() {
           </ul>
         </div>
 
-        {/* الجهاز: هالة نابضة، لمعة تمرّ على الشاشة، وظل طويل تحته */}
+        {/* قصة التوقيع: مسح، ثم توقيع، ثم ختم، ثم إرسال — تتكرّر أمام الزائر */}
         <div className="relative flex justify-center lg:justify-end">
-          <div
-            aria-hidden
-            className="absolute inset-x-10 bottom-[2%] h-20 rounded-[50%] blur-md"
-            style={{
-              background:
-                "radial-gradient(closest-side, color-mix(in oklab, #000 80%, transparent), transparent)",
-            }}
-          />
-          <div className="fx-float relative [--tilt:-2deg]">
-            <div
-              aria-hidden
-              className="fx-pulse absolute -inset-10 rounded-[4rem]"
-              style={{
-                background:
-                  "radial-gradient(closest-side, color-mix(in oklab, var(--wq-gold) 24%, transparent), transparent 70%)",
-              }}
-            />
-            <CyclingPhone className="relative" />
-          </div>
+          <SigningSequence />
         </div>
+
       </div>
     </section>
   );
