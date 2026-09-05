@@ -1,12 +1,15 @@
 import { DateStamp } from "@/components/brand/date-stamp";
+import { PaperSheet, Seal } from "@/components/brand/paper";
 import { WhatsAppGlyph } from "@/components/brand/screens";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
-import { featureExtras, features, sections } from "@/lib/content";
+import { featureExtras, features, sections, site } from "@/lib/content";
 
 /**
- * البنود مرقّمة كمواد عقد، مفصولة بخطوط شعرية لا ببطاقات.
- * الترقيم هنا يحمل معنى: هذه قائمة قدرات مرقّمة في وثيقة، لا زخرفة.
+ * البنود مرقّمة كمواد عقد، معروضة على ورقة حقيقية فوق أرضية الحبر.
+ *
+ * الألوان على الورق: الحبر للنص (8.96:1)، وCard Teal للأرقام (10.9:1)،
+ * والذهبي للشريط والختم فقط لأنه لا يعطي على الورق إلا 2.18:1.
  */
 const articles = [
   { num: "٠١", ...features.whatsapp },
@@ -20,38 +23,61 @@ const articles = [
 export function Features() {
   return (
     <section id="features" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading {...sections.features} />
 
-        <ol className="mt-14 grid gap-x-12 md:grid-cols-2">
-          {articles.map((item, i) => (
-            <Reveal
-              as="li"
-              key={item.num}
-              delay={i * 0.05}
-              className="grid gap-x-6 gap-y-2 border-t hairline py-6 sm:grid-cols-[3.2rem_1fr]"
-            >
-              <span
-                className="font-mono text-[1.5rem] font-semibold leading-none text-gold ltr-num"
-                aria-hidden
-              >
-                {item.num}
-              </span>
-              <div>
-                <h3 className="text-lg font-semibold text-ivory">{item.title}</h3>
-                <p className="mt-2 text-sm leading-[2] text-ivory/70">
-                  {item.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
+        <Reveal delay={0.1} className="mt-14">
+          <PaperSheet>
+            <div className="relative px-6 py-12 sm:px-12 sm:py-14">
+              <Seal className="absolute -bottom-4 end-2 size-28 -rotate-[9deg] sm:end-6 sm:size-36" />
 
-        {/* عيّنتان توضيحيتان، معنونتان كأشكال في دليل رسمي */}
-        <div className="mt-16 grid gap-x-10 gap-y-12 lg:grid-cols-2">
+              {/* ترويسة الوثيقة بالنسخة المعكوسة من الشعار، المعتمدة للورق */}
+              <div className="flex items-end justify-between border-b border-ink/15 pb-5">
+                <div className="flex flex-col leading-none">
+                  <span className="text-xl font-bold text-ink">{site.name}</span>
+                  <span
+                    className="mt-1.5 font-mono text-[0.55rem] text-ink/70"
+                    style={{ letterSpacing: "0.4em" }}
+                  >
+                    {site.latin}
+                  </span>
+                </div>
+                <span
+                  className="font-mono text-[0.6rem] uppercase text-ink/70 ltr-num"
+                  style={{ letterSpacing: "0.2em" }}
+                >
+                  ٠١ — ٠٦
+                </span>
+              </div>
+
+              <ol className="grid gap-x-12 md:grid-cols-2">
+                {articles.map((item) => (
+                  <li
+                    key={item.num}
+                    className="grid gap-x-5 gap-y-1.5 border-b border-ink/12 py-7 sm:grid-cols-[3rem_1fr]"
+                  >
+                    <span
+                      className="font-mono text-[1.5rem] font-semibold leading-none text-card ltr-num"
+                      aria-hidden
+                    >
+                      {item.num}
+                    </span>
+                    <div>
+                      <h3 className="text-[1.05rem] font-semibold text-ink">{item.title}</h3>
+                      <p className="mt-2 text-sm leading-[1.95] text-ink/80">{item.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </PaperSheet>
+        </Reveal>
+
+        {/* عيّنتان على أرضية الحبر، معنونتان كأشكال في دليل مطبوع */}
+        <div className="mt-20 grid gap-x-12 gap-y-14 lg:grid-cols-2">
           <Reveal className="flex flex-col">
             <Figure caption="شكل ١ — مشاركة النسخة الموقّعة داخل المحادثة" />
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="mt-6 flex flex-col gap-2.5">
               <div className="flex justify-start">
                 <span className="max-w-[80%] rounded-2xl rounded-ss-sm bg-ivory/8 px-4 py-2.5 text-sm text-ivory/75">
                   {featureExtras.chat.incoming}
@@ -70,8 +96,8 @@ export function Features() {
                   </span>
                 </span>
               </div>
-              <p className="mt-3 flex items-center gap-2 text-xs text-ivory/60">
-                <WhatsAppGlyph className="size-3.5 text-whatsapp" />
+              <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ivory/65">
+                <WhatsAppGlyph className="mt-0.5 size-3.5 shrink-0 text-whatsapp" />
                 الأخضر محصور في هذا السياق وحده، كما ينصّ دليل الهوية.
               </p>
             </div>
@@ -79,7 +105,7 @@ export function Features() {
 
           <Reveal delay={0.08} className="flex flex-col">
             <Figure caption="شكل ٢ — ختم التاريخ، بدّل الخيارات وشاهد الأثر" />
-            <div className="mt-5">
+            <div className="mt-6">
               <DateStamp />
             </div>
           </Reveal>
@@ -89,10 +115,10 @@ export function Features() {
   );
 }
 
-/** عنوان عيّنة: خط شعري ثم تسمية صغيرة، كما تُعنون الأشكال في الأدلة المطبوعة. */
+/** عنوان عيّنة: خط ذهبي شعري ثم تسمية، كما تُعنون الأشكال في الأدلة المطبوعة. */
 function Figure({ caption }: { caption: string }) {
   return (
-    <div className="flex items-center gap-3 border-t hairline-gold pt-3">
+    <div className="border-t hairline-gold pt-3">
       <span className="text-xs text-ivory/70">{caption}</span>
     </div>
   );

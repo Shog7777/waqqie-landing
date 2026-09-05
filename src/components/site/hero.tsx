@@ -1,5 +1,6 @@
 import { FileCheck2, ShieldCheck, WifiOff } from "lucide-react";
 
+import { PaperSheet, Seal } from "@/components/brand/paper";
 import { PhoneFrame } from "@/components/brand/phone-frame";
 import { SignScreen } from "@/components/brand/screens";
 import { SignatureMark } from "@/components/brand/signature-mark";
@@ -87,11 +88,43 @@ export function Hero() {
           </Rise>
         </div>
 
-        {/* المجسّم مُحاذى لأسفل القسم فيلامس حافّته، بدل توسيطه في مربّع متساوٍ */}
+        {/* تركيب متراكب: وثيقة موقّعة ومختومة خلف الجهاز، والجهاز يلامس حافة
+            القسم. القسم `overflow-hidden` فلا تسبّب الورقة المائلة تمريرًا أفقيًا. */}
         <Rise delay={0.2} className="flex justify-center lg:justify-end">
-          <PhoneFrame label="شاشة التوقيع في تطبيق وقّع" className="translate-y-px">
-            <SignScreen />
-          </PhoneFrame>
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute -start-40 bottom-12 hidden w-72 -rotate-[9deg] lg:block"
+            >
+              <PaperSheet>
+                <div className="relative px-5 pb-6 pt-5">
+                  <Seal className="absolute -top-1 end-3 size-20" />
+                  <div className="h-2 w-1/2 rounded-full bg-ink/20" />
+                  <div className="mt-4 flex flex-col gap-2">
+                    {[100, 92, 78, 96, 64].map((w, i) => (
+                      <span
+                        key={i}
+                        className="h-[3px] rounded-full bg-ink/12"
+                        style={{ width: `${w}%` }}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-6 border-t border-dashed border-ink/25 pt-2">
+                    <SignatureMark
+                      color="var(--wq-ink)"
+                      strokeWidth={2.2}
+                      animate={false}
+                      className="h-12"
+                    />
+                  </div>
+                </div>
+              </PaperSheet>
+            </div>
+
+            <PhoneFrame label="شاشة التوقيع في تطبيق وقّع" className="relative translate-y-px">
+              <SignScreen />
+            </PhoneFrame>
+          </div>
         </Rise>
       </div>
     </section>
