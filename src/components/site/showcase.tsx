@@ -32,7 +32,7 @@ export function Showcase() {
   }, [api]);
 
   return (
-    <section id="showcase" className="relative overflow-hidden py-24 sm:py-32">
+    <section id="showcase" className="relative overflow-hidden bg-abyss py-24 sm:py-32">
       <SectionLight position="top" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">

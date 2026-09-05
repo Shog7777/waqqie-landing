@@ -117,6 +117,14 @@
     transform: translateY(-10px);
   }
 }
+@keyframes travel {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(520%);
+  }
+}
 @keyframes drift {
   0%,
   100% {
@@ -233,7 +241,12 @@
 }
 
 @layer utilities {
-  /* ===== حركة المعاينة ===== */
+  /* شعاع يمرّ على الشريط الذهبي */
+  .fx-travel {
+    animation: travel 5.5s linear infinite;
+  }
+
+  /* ===== حركة المشهد ===== */
   .fx-drift {
     animation: drift 16s ease-in-out infinite;
   }
@@ -351,6 +364,7 @@
 /* احترام تفضيل تقليل الحركة */
 @media (prefers-reduced-motion: reduce) {
   .fx-drift,
+  .fx-travel,
   .fx-pulse,
   .fx-float,
   .fx-shimmer,

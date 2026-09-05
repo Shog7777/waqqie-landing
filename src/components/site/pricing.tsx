@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative overflow-hidden py-24 sm:py-32">
+    <section id="pricing" className="relative overflow-hidden bg-abyss py-24 sm:py-32">
       <SectionLight position="end" />
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
