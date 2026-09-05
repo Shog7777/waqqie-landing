@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { PhoneFrame } from "@/components/brand/phone-frame";
+import { SectionLight } from "@/components/brand/surface";
 import { screenMap, type ScreenId } from "@/components/brand/screens";
 import { SectionHeading } from "@/components/site/section-heading";
 import {
@@ -31,8 +32,10 @@ export function Showcase() {
   }, [api]);
 
   return (
-    <section id="showcase" className="relative overflow-hidden border-y hairline bg-abyss py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="showcase" className="relative overflow-hidden py-24 sm:py-32">
+      <SectionLight position="top" />
+
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           {...sections.showcase}
           align="center"

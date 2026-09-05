@@ -14,23 +14,28 @@ const flow = [
 ];
 
 /**
- * الجهاز الأوسط يمشي في رحلة المنتج تلقائيًا: توقيع، ثم ختم، ثم نجاح.
+ * الجهاز يمشي في رحلة المنتج تلقائيًا: توقيع، ثم ختم، ثم نجاح.
  * يتوقّف عند تفعيل «تقليل الحركة» ويبقى على الشاشة الأولى.
  */
-export function CyclingPhone({ className }: { className?: string }) {
+export function CyclingPhone({
+  className,
+  width = "w-[248px] sm:w-[276px]",
+}: {
+  className?: string;
+  width?: string;
+}) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => setIndex((v) => (v + 1) % flow.length), 3400);
     return () => clearInterval(id);
   }, []);
 
   return (
     <div className={cn("flex flex-col items-center gap-5", className)}>
-      <div className="relative">
-        <PhoneFrame label="رحلة التوقيع في تطبيق وقّع" className="w-[232px] sm:w-[258px]">
+      <div className="fx-sweep relative overflow-hidden rounded-[2.6rem] drop-shadow-[0_48px_68px_rgba(0,0,0,.8)]">
+        <PhoneFrame label="رحلة التوقيع في تطبيق وقّع" className={width}>
           <div className="relative size-full">
             {flow.map(({ Screen }, i) => (
               <div

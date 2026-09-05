@@ -1,88 +1,91 @@
 import { Check } from "lucide-react";
 
-import { PaperSheet } from "@/components/brand/paper";
+import { SectionLight, Surface } from "@/components/brand/surface";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Button } from "@/components/ui/button";
 import { plans, sections, ui } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-/**
- * الباقتان جدول أسعار مطبوع على ورق، لا بطاقتان طافيتان. الباقة المميّزة
- * يعلوها خط داكن تحمل تسميتها، كما يُعلَّم البند المختار في عرض سعر رسمي.
- */
 export function Pricing() {
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading {...sections.pricing} />
+    <section id="pricing" className="relative overflow-hidden py-24 sm:py-32">
+      <SectionLight position="end" />
 
-        <Reveal delay={0.1} className="mt-14">
-          <PaperSheet chapter="الباقات" page="٠٢">
-            <div className="grid gap-x-14 gap-y-12 md:grid-cols-2">
-              {plans.map((plan) => (
-                <div key={plan.id} className="flex h-full flex-col">
-                  <div
-                    className={cn(
-                      "flex items-center justify-between border-t-2 pb-4 pt-4",
-                      plan.highlighted ? "border-card" : "border-ink/25",
-                    )}
-                  >
-                    <h3 className="text-lg font-semibold text-ink">{plan.name}</h3>
-                    {plan.highlighted ? (
-                      <span
-                        className="font-mono text-[0.6rem] uppercase text-ink/70"
-                        style={{ letterSpacing: "0.2em" }}
-                      >
-                        {ui.planBadge}
-                      </span>
-                    ) : null}
-                  </div>
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
+        <SectionHeading {...sections.pricing} align="center" className="mx-auto items-center" />
 
-                  <p
-                    className={cn(
-                      "text-[2.1rem] font-bold leading-none text-ink",
-                      plan.highlighted && "font-mono",
-                    )}
-                  >
-                    {plan.price}
-                  </p>
-                  <p className="mt-3 max-w-[38ch] text-xs leading-relaxed text-ink/70">
-                    {plan.note}
-                  </p>
+        <div className="mt-16 grid gap-5 md:grid-cols-2 md:items-stretch">
+          {plans.map((plan, i) => (
+            <Reveal key={plan.id} delay={i * 0.08} className="h-full">
+              <Surface
+                glow={plan.highlighted}
+                className={cn(
+                  "flex h-full flex-col p-8",
+                  plan.highlighted && "bg-card shadow-[0_34px_90px_-38px_rgba(212,162,78,.45)]",
+                )}
+              >
+                {plan.highlighted ? (
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-[2px] bg-gold"
+                  />
+                ) : null}
 
-                  <ul className="mt-8 flex flex-1 flex-col">
-                    {plan.features.map((f) => (
-                      <li
-                        key={f}
-                        className="flex items-start gap-3 border-t border-ink/12 py-3.5 text-sm text-ink/80"
-                      >
-                        <Check className="mt-1 size-4 shrink-0 text-card" strokeWidth={2.5} />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    asChild
-                    size="lg"
-                    className={cn(
-                      "mt-8 h-11 w-full text-sm font-semibold",
-                      plan.highlighted
-                        ? "bg-ink text-ivory hover:bg-card"
-                        : "border border-ink/30 bg-transparent text-ink hover:bg-ink/10",
-                    )}
-                  >
-                    <a href="#download">{plan.cta}</a>
-                  </Button>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-ivory">{plan.name}</h3>
+                  {plan.highlighted ? (
+                    <span
+                      className="font-mono text-[0.6rem] uppercase text-ivory/70"
+                      style={{ letterSpacing: "0.2em" }}
+                    >
+                      {ui.planBadge}
+                    </span>
+                  ) : null}
                 </div>
-              ))}
-            </div>
 
-            <p className="mt-12 max-w-[74ch] border-t border-ink/12 pt-5 text-xs leading-relaxed text-ink/70">
-              {ui.pricingNote}
-            </p>
-          </PaperSheet>
+                <p
+                  className={cn(
+                    "mt-5 text-[2.2rem] font-bold leading-none",
+                    plan.highlighted ? "font-mono text-gold" : "text-ivory",
+                  )}
+                >
+                  {plan.price}
+                </p>
+                <p className="mt-3 text-xs leading-relaxed text-ivory/70">{plan.note}</p>
+
+                <ul className="mt-8 flex flex-1 flex-col gap-3.5">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex items-start gap-3 text-sm text-ivory/75">
+                      <Check
+                        className={cn(
+                          "mt-1 size-4 shrink-0",
+                          plan.highlighted ? "text-gold" : "text-ivory/60",
+                        )}
+                        strokeWidth={2.5}
+                      />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+
+                <Button
+                  asChild
+                  size="lg"
+                  variant={plan.highlighted ? "default" : "outline"}
+                  className="mt-9 h-11 w-full text-sm font-semibold"
+                >
+                  <a href="#download">{plan.cta}</a>
+                </Button>
+              </Surface>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.2}>
+          <p className="mx-auto mt-10 max-w-[70ch] text-center text-xs leading-relaxed text-ivory/70">
+            {ui.pricingNote}
+          </p>
         </Reveal>
       </div>
     </section>

@@ -2,15 +2,23 @@ import { Reveal } from "@/components/motion/reveal";
 import { trustBadges } from "@/lib/content";
 
 /**
- * شريط ترويسة على هيئة رأس مستند رسمي: شريط ذهبي رفيع فوقه، ثم أربعة حقول
- * مفصولة بخطوط شعرية. القيم عند 1.6rem فأكثر حتى يتجاوز الذهبي عتبة التباين
- * الخاصة بالنص الكبير فوق الحبر.
+ * شريط مضاء بعد المشهد الافتتاحي. القيم عند 1.6rem فأكثر حتى يتجاوز الذهبي
+ * عتبة التباين الخاصة بالنص الكبير فوق الحبر.
  */
 export function TrustBar() {
   return (
-    <section aria-label="ما يميّز وقّع" className="relative bg-abyss">
+    <section aria-label="ما يميّز وقّع" className="relative overflow-hidden bg-ink">
       <span aria-hidden className="block h-[3px] w-full bg-gold" />
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-40"
+        style={{
+          background:
+            "radial-gradient(70% 100% at 50% 0%, color-mix(in oklab, var(--wq-gold) 12%, transparent), transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <dl className="grid grid-cols-1 gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
           {trustBadges.map((b, i) => (
             <Reveal
@@ -23,7 +31,7 @@ export function TrustBar() {
               </dt>
               <dd className="flex flex-col gap-1">
                 <span className="text-sm font-medium text-ivory">{b.label}</span>
-                <span className="text-xs leading-relaxed text-ivory/65">{b.hint}</span>
+                <span className="text-xs leading-relaxed text-ivory/70">{b.hint}</span>
               </dd>
             </Reveal>
           ))}

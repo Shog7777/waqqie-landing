@@ -1,118 +1,105 @@
-import { FileCheck2, ShieldCheck, WifiOff } from "lucide-react";
-
-import { PaperLines, PaperSheet, Seal } from "@/components/brand/paper";
-import { PhoneFrame } from "@/components/brand/phone-frame";
-import { SignScreen } from "@/components/brand/screens";
-import { SignatureMark } from "@/components/brand/signature-mark";
+import { CyclingPhone } from "@/components/brand/cycling-phone";
 import { StoreBadges } from "@/components/brand/store-badges";
-import { Rise } from "@/components/motion/rise";
-import { hero, site, ui } from "@/lib/content";
-import { formatStamp } from "@/lib/format";
+import { hero, ui } from "@/lib/content";
 
-const proofIcons = [ShieldCheck, WifiOff, FileCheck2];
-
-/** التاريخ بالتقويم الهجري والأرقام المشرقية، كبقية الصفحة. */
-const signedOn = formatStamp("hijri", "eastern");
-
+/**
+ * دمج الاتجاهين المختارين: إضاءة الاتجاه «أ» بوصفها نظام المشهد، والجهاز
+ * الحيّ من الاتجاه «ج» بوصفه بطل الصورة.
+ *
+ * العنوان والنص الفرعي بلا حركة دخول عمدًا: أي عنصر يبدأ بشفافية صفر
+ * يُستبعد من قياس LCP حتى يظهر، وهذان أكبر نصّين في الصفحة.
+ */
 export function Hero() {
   return (
-    <section id="download" className="relative overflow-hidden pb-28 pt-32 sm:pt-40">
-      <div aria-hidden className="ruled pointer-events-none absolute inset-0 opacity-70" />
+    <section id="download" className="relative overflow-hidden bg-abyss pb-24 pt-32 sm:pt-40">
+      {/* مصدر الضوء: كتلة ذهبية تتنفّس وتنزاح ببطء */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[80%] bg-[radial-gradient(115%_75%_at_72%_0%,color-mix(in_oklab,var(--wq-gold)_10%,transparent),transparent_68%)]"
+        className="fx-drift pointer-events-none absolute -top-1/4 start-[-10%] size-[46rem] rounded-full opacity-70"
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in oklab, var(--wq-gold) 30%, transparent), transparent 72%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="fx-pulse pointer-events-none absolute bottom-[-24%] end-[-8%] size-[34rem] rounded-full"
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in oklab, var(--wq-ink) 92%, transparent), transparent 70%)",
+        }}
+      />
+      {/* تعتيم الأطراف */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(125% 95% at 50% 50%, transparent 30%, color-mix(in oklab, #000 68%, transparent) 100%)",
+        }}
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-y-24 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-x-12">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-y-20 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-x-16">
         <div className="flex flex-col items-start">
-          <Rise>
-            <p className="flex items-center gap-3">
-              <span aria-hidden className="h-px w-10 bg-gold" />
-              <span
-                className="font-mono text-[0.66rem] uppercase text-ivory/70"
-                style={{ letterSpacing: "0.26em" }}
-              >
-                {hero.eyebrow}
-              </span>
-            </p>
-          </Rise>
+          <p className="fx-line flex items-center gap-3" style={{ animationDelay: "0.05s" }}>
+            <span aria-hidden className="h-px w-10 bg-gold" />
+            <span
+              className="font-mono text-[0.66rem] uppercase text-ivory/70"
+              style={{ letterSpacing: "0.26em" }}
+            >
+              {hero.eyebrow}
+            </span>
+          </p>
 
-          {/* بلا حركة دخول: أي عنصر يبدأ بشفافية صفر يُستبعد من قياس LCP. */}
-          <h1 className="mt-8 text-[2.7rem] font-bold leading-[1.16] text-ivory sm:text-[3.3rem] lg:text-[3.7rem]">
+          <h1 className="mt-8 text-[2.9rem] font-bold leading-[1.14] tracking-[-0.01em] text-ivory sm:text-[3.6rem] lg:text-[4rem]">
             {hero.titleLead}
             <br />
             <span className="text-gold">{hero.titleAccent}</span>
           </h1>
 
-          {/* كتلة التوقيع: التوقيع فوق الخط، والاسم والتاريخ تحته. */}
-          <Rise delay={0.12}>
-            <div className="mt-9 w-[min(21rem,100%)]">
-              <SignatureMark
-                color="var(--wq-gold)"
-                strokeWidth={2.5}
-                className="h-14 translate-y-1"
-              />
-              <div className="border-b hairline-gold" />
-              <div className="mt-2 flex items-baseline justify-between gap-6 font-mono text-[0.6rem] text-ivory/60">
-                <span style={{ letterSpacing: "0.16em" }}>{site.latin}</span>
-                <span className="ltr-num">
-                  {signedOn.numeric} {signedOn.suffix}
-                </span>
-              </div>
-            </div>
-          </Rise>
-
-          <p className="mt-9 max-w-[44ch] text-base leading-[2] text-ivory/70 sm:text-[1.05rem]">
+          <p className="mt-8 max-w-[42ch] text-base leading-[2] text-ivory/70 sm:text-[1.06rem]">
             {hero.subtitle}
           </p>
 
-          <Rise delay={0.18}>
-            <StoreBadges className="mt-9" />
-          </Rise>
+          <div className="fx-line mt-10" style={{ animationDelay: "0.5s" }}>
+            <StoreBadges />
+          </div>
 
-          <Rise delay={0.24} className="mt-9 w-full">
-            <ul className="flex flex-wrap items-center gap-x-7 gap-y-3 border-t hairline pt-5">
-              {ui.heroProof.map((text, i) => {
-                const Icon = proofIcons[i];
-                return (
-                  <li key={text} className="flex items-center gap-2 text-sm text-ivory/70">
-                    <Icon className="size-4 text-gold" />
-                    {text}
-                  </li>
-                );
-              })}
-            </ul>
-          </Rise>
+          <ul
+            className="fx-line mt-10 flex flex-wrap items-center gap-x-7 gap-y-3"
+            style={{ animationDelay: "0.64s" }}
+          >
+            {ui.heroProof.map((text) => (
+              <li key={text} className="flex items-center gap-2 text-sm text-ivory/70">
+                <span aria-hidden className="size-1 rounded-full bg-gold" />
+                {text}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* المشهد: عقد موقّع ومختوم، والجهاز موضوع فوقه. */}
-        <Rise delay={0.2}>
-          <div className="relative mx-auto w-full max-w-[30rem] pb-16 sm:pb-8">
-            <div className="-rotate-[6deg]">
-              <PaperSheet stacked={false}>
-                <div className="relative min-h-[22rem] sm:min-h-[25rem]">
-                  <p className="font-mono text-[0.55rem] text-ink/60 ltr-num">{hero.docId}</p>
-                  <h2 className="mt-2 text-base font-bold text-ink">{hero.docTitle}</h2>
-                  <PaperLines className="mt-6" widths={[100, 94, 88, 97, 72]} />
-                  <PaperLines className="mt-5" widths={[96, 82]} />
-
-                  <div className="mt-9 border-t border-dashed border-ink/25 pt-3">
-                    <span className="font-mono text-[0.5rem] text-ink/55 ltr-num">SIGNATURE</span>
-                    <SignatureMark color="var(--wq-ink)" strokeWidth={2.4} className="h-14" />
-                  </div>
-
-                  <Seal className="absolute -bottom-3 end-0 size-24 -rotate-[10deg] sm:size-28" />
-                </div>
-              </PaperSheet>
-            </div>
-
-            <div className="absolute -bottom-2 -start-6 rotate-[3deg] sm:-start-12">
-              <PhoneFrame label="شاشة التوقيع في تطبيق وقّع" className="w-[180px] sm:w-[214px]">
-                <SignScreen />
-              </PhoneFrame>
-            </div>
+        {/* الجهاز: هالة نابضة، لمعة تمرّ على الشاشة، وظل طويل تحته */}
+        <div className="relative flex justify-center lg:justify-end">
+          <div
+            aria-hidden
+            className="absolute inset-x-10 bottom-[2%] h-20 rounded-[50%] blur-md"
+            style={{
+              background:
+                "radial-gradient(closest-side, color-mix(in oklab, #000 80%, transparent), transparent)",
+            }}
+          />
+          <div className="fx-float relative [--tilt:-2deg]">
+            <div
+              aria-hidden
+              className="fx-pulse absolute -inset-10 rounded-[4rem]"
+              style={{
+                background:
+                  "radial-gradient(closest-side, color-mix(in oklab, var(--wq-gold) 24%, transparent), transparent 70%)",
+              }}
+            />
+            <CyclingPhone className="relative" />
           </div>
-        </Rise>
+        </div>
       </div>
     </section>
   );

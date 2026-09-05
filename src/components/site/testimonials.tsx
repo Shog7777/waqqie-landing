@@ -1,32 +1,35 @@
+import { SectionLight, Surface } from "@/components/brand/surface";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
 import { sections, testimonials } from "@/lib/content";
 
-/**
- * الآراء كقيود في سجل، لا كبطاقات اقتباس. كل قيد يبدأ بخط شعري، والاسم
- * والصفة في عمود جانبي كما تُدوَّن أطراف المستند.
- */
 export function Testimonials() {
   return (
-    <section id="testimonials" className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+    <section id="testimonials" className="relative overflow-hidden bg-abyss py-24 sm:py-32">
+      <SectionLight position="start" />
+
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading {...sections.testimonials} />
 
-        <div className="mt-14">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.06}>
-              <figure className="grid gap-x-10 gap-y-3 border-t hairline py-8 md:grid-cols-[11rem_1fr]">
-                <figcaption className="flex flex-col">
-                  <span className="text-sm font-semibold text-ivory">{t.name}</span>
-                  <span className="mt-0.5 text-xs text-ivory/60">{t.role}</span>
-                </figcaption>
-                <blockquote className="max-w-[60ch] text-[0.98rem] leading-[2] text-ivory/75">
+            <Reveal key={t.name} delay={i * 0.07} className="h-full">
+              <Surface className="flex h-full flex-col p-7">
+                <blockquote className="flex-1 text-sm leading-[2] text-ivory/75">
                   {t.quote}
                 </blockquote>
-              </figure>
+                <figcaption className="mt-6 flex items-center gap-3 border-t hairline pt-4">
+                  <span className="grid size-9 place-items-center rounded-full bg-gold/12 text-xs font-semibold text-gold">
+                    {t.initials}
+                  </span>
+                  <span className="flex flex-col leading-tight">
+                    <span className="text-sm font-medium text-ivory">{t.name}</span>
+                    <span className="text-xs text-ivory/65">{t.role}</span>
+                  </span>
+                </figcaption>
+              </Surface>
             </Reveal>
           ))}
-          <div className="border-t hairline" />
         </div>
       </div>
     </section>

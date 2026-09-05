@@ -1,3 +1,4 @@
+import { SectionLight } from "@/components/brand/surface";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/site/section-heading";
 import {
@@ -11,7 +12,9 @@ import { faqs, sections, site } from "@/lib/content";
 export function Faq() {
   return (
     <section id="faq" className="relative border-t border-ivory/10 bg-abyss/40 py-24 sm:py-32">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <SectionLight position="end" />
+
+      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
             {...sections.faq}

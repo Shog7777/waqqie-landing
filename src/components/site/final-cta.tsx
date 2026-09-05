@@ -1,55 +1,61 @@
-import { PaperSheet, Seal } from "@/components/brand/paper";
 import { SignatureMark } from "@/components/brand/signature-mark";
 import { StoreBadges } from "@/components/brand/store-badges";
 import { Reveal } from "@/components/motion/reveal";
 import { finalCta, site } from "@/lib/content";
-import { formatStamp } from "@/lib/format";
-
-const signedOn = formatStamp("hijri", "eastern");
 
 /**
- * الصفحة الأخيرة من الوثيقة: الدعوة، ثم كتلة توقيع مطابقة لتلك التي فُتحت
- * بها الصفحة، وختم. الصفحة تبدأ بتوقيع وتنتهي به.
+ * الخاتمة بأقوى إضاءة في الصفحة: كتلة ضوء واحدة خلف الدعوة، وتوقيع يُرسم
+ * على خط ذهبي أسفلها.
  */
 export function FinalCta() {
   return (
-    <section className="relative py-24 sm:py-32">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <Reveal>
-          <PaperSheet chapter="الخاتمة" page="٠٣">
-            <div className="relative flex flex-col items-center py-6 text-center sm:py-10">
-              <Seal className="pointer-events-none absolute -top-4 end-0 size-24 rotate-[8deg] sm:size-28" />
+    <section className="relative overflow-hidden bg-abyss py-28 sm:py-36">
+      <div
+        aria-hidden
+        className="fx-drift pointer-events-none absolute -top-1/4 start-1/2 size-[44rem] -translate-x-1/2 rounded-full"
+        style={{
+          background:
+            "radial-gradient(closest-side, color-mix(in oklab, var(--wq-gold) 26%, transparent), transparent 70%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(120% 90% at 50% 45%, transparent 30%, color-mix(in oklab, #000 62%, transparent) 100%)",
+        }}
+      />
 
-              <h2 className="max-w-[18ch] text-[1.9rem] font-bold leading-[1.35] text-ink sm:text-[2.35rem]">
-                {finalCta.title}
-              </h2>
+      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <Reveal className="flex flex-col items-center">
+          <span
+            className="font-mono text-[0.66rem] uppercase text-ivory/70"
+            style={{ letterSpacing: "0.3em" }}
+          >
+            {site.latin}
+          </span>
 
-              <p className="mt-5 max-w-[48ch] text-[1.02rem] leading-[2] text-ink/80">
-                {finalCta.body}
-              </p>
+          <h2 className="mt-7 max-w-[18ch] text-[2.1rem] font-bold leading-[1.3] text-ivory sm:text-[2.7rem]">
+            {finalCta.title}
+          </h2>
 
-              <div className="mt-10 rounded-xl bg-ink px-6 py-6 sm:px-9">
-                <StoreBadges className="justify-center" />
-              </div>
+          <p className="mt-6 max-w-[50ch] text-base leading-[2] text-ivory/70">
+            {finalCta.body}
+          </p>
 
-              <div className="mt-14 w-[min(20rem,100%)]">
-                <SignatureMark
-                  color="var(--wq-ink)"
-                  strokeWidth={2.4}
-                  className="h-14 translate-y-1"
-                  animate={false}
-                />
-                <div className="border-b border-ink/30" />
-                <div className="mt-2 flex items-baseline justify-between gap-6 font-mono text-[0.6rem] text-ink/70">
-                  <span style={{ letterSpacing: "0.16em" }}>{site.latin}</span>
-                  <span className="ltr-num">
-                    {signedOn.numeric} {signedOn.suffix}
-                  </span>
-                </div>
-                <p className="mt-5 text-sm font-semibold text-ink">{site.tagline}</p>
-              </div>
-            </div>
-          </PaperSheet>
+          <StoreBadges className="mt-10 justify-center" />
+
+          <div className="mt-16 w-[min(20rem,100%)]">
+            <SignatureMark
+              color="var(--wq-gold)"
+              strokeWidth={2.5}
+              className="h-14 translate-y-1"
+              animate={false}
+            />
+            <div className="border-b hairline-gold" />
+            <p className="mt-4 text-sm font-semibold text-gold">{site.tagline}</p>
+          </div>
         </Reveal>
       </div>
     </section>
