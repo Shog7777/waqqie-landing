@@ -1,31 +1,30 @@
 import { FileCheck2, ShieldCheck, WifiOff } from "lucide-react";
 
-import { PaperSheet, Seal } from "@/components/brand/paper";
+import { PaperLines, PaperSheet, Seal } from "@/components/brand/paper";
 import { PhoneFrame } from "@/components/brand/phone-frame";
 import { SignScreen } from "@/components/brand/screens";
 import { SignatureMark } from "@/components/brand/signature-mark";
 import { StoreBadges } from "@/components/brand/store-badges";
 import { Rise } from "@/components/motion/rise";
-import { hero, ui } from "@/lib/content";
+import { hero, site, ui } from "@/lib/content";
 import { formatStamp } from "@/lib/format";
 
 const proofIcons = [ShieldCheck, WifiOff, FileCheck2];
 
-/** التاريخ في كتلة التوقيع بالتقويم الهجري والأرقام المشرقية، كبقية الصفحة. */
+/** التاريخ بالتقويم الهجري والأرقام المشرقية، كبقية الصفحة. */
 const signedOn = formatStamp("hijri", "eastern");
 
 export function Hero() {
   return (
-    <section id="download" className="relative overflow-hidden pt-32 sm:pt-40">
-      {/* نسيج ورق مسطّر بدل نمط النقاط العام */}
-      <div aria-hidden className="ruled pointer-events-none absolute inset-0 opacity-60" />
+    <section id="download" className="relative overflow-hidden pb-28 pt-32 sm:pt-40">
+      <div aria-hidden className="ruled pointer-events-none absolute inset-0 opacity-70" />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[70%] bg-[radial-gradient(120%_80%_at_70%_0%,color-mix(in_oklab,var(--wq-gold)_9%,transparent),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[80%] bg-[radial-gradient(115%_75%_at_72%_0%,color-mix(in_oklab,var(--wq-gold)_10%,transparent),transparent_68%)]"
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-end gap-y-16 px-4 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-x-10">
-        <div className="flex flex-col items-start pb-20 sm:pb-28">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-y-24 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-x-12">
+        <div className="flex flex-col items-start">
           <Rise>
             <p className="flex items-center gap-3">
               <span aria-hidden className="h-px w-10 bg-gold" />
@@ -38,26 +37,24 @@ export function Hero() {
             </p>
           </Rise>
 
-          {/* العنوان والنص الفرعي بلا حركة دخول عمدًا: أي عنصر يبدأ بشفافية صفر
-              يُستبعد من قياس LCP حتى يظهر، وهذان أكبر نصّين في الصفحة. */}
-          <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.2] text-ivory sm:text-[3.2rem] lg:text-[3.6rem]">
+          {/* بلا حركة دخول: أي عنصر يبدأ بشفافية صفر يُستبعد من قياس LCP. */}
+          <h1 className="mt-8 text-[2.7rem] font-bold leading-[1.16] text-ivory sm:text-[3.3rem] lg:text-[3.7rem]">
             {hero.titleLead}
             <br />
             <span className="text-gold">{hero.titleAccent}</span>
           </h1>
 
-          {/* سطر التوقيع: التوقيع يُرسم فوق الخط، والاسم والتاريخ تحته —
-              كتلة التوقيع نفسها في أي عقد رسمي. */}
+          {/* كتلة التوقيع: التوقيع فوق الخط، والاسم والتاريخ تحته. */}
           <Rise delay={0.12}>
-            <div className="mt-8 w-[min(22rem,100%)]">
+            <div className="mt-9 w-[min(21rem,100%)]">
               <SignatureMark
                 color="var(--wq-gold)"
                 strokeWidth={2.5}
-                className="h-16 translate-y-1"
+                className="h-14 translate-y-1"
               />
               <div className="border-b hairline-gold" />
-              <div className="mt-2 flex items-baseline justify-between font-mono text-[0.62rem] text-ivory/60">
-                <span style={{ letterSpacing: "0.24em" }}>WAQQIE</span>
+              <div className="mt-2 flex items-baseline justify-between gap-6 font-mono text-[0.6rem] text-ivory/60">
+                <span style={{ letterSpacing: "0.16em" }}>{site.latin}</span>
                 <span className="ltr-num">
                   {signedOn.numeric} {signedOn.suffix}
                 </span>
@@ -65,7 +62,7 @@ export function Hero() {
             </div>
           </Rise>
 
-          <p className="mt-9 max-w-[46ch] text-base leading-[2] text-ivory/70 sm:text-[1.05rem]">
+          <p className="mt-9 max-w-[44ch] text-base leading-[2] text-ivory/70 sm:text-[1.05rem]">
             {hero.subtitle}
           </p>
 
@@ -88,42 +85,32 @@ export function Hero() {
           </Rise>
         </div>
 
-        {/* تركيب متراكب: وثيقة موقّعة ومختومة خلف الجهاز، والجهاز يلامس حافة
-            القسم. القسم `overflow-hidden` فلا تسبّب الورقة المائلة تمريرًا أفقيًا. */}
-        <Rise delay={0.2} className="flex justify-center lg:justify-end">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -start-40 bottom-12 hidden w-72 -rotate-[9deg] lg:block"
-            >
-              <PaperSheet>
-                <div className="relative px-5 pb-6 pt-5">
-                  <Seal className="absolute -top-1 end-3 size-20" />
-                  <div className="h-2 w-1/2 rounded-full bg-ink/20" />
-                  <div className="mt-4 flex flex-col gap-2">
-                    {[100, 92, 78, 96, 64].map((w, i) => (
-                      <span
-                        key={i}
-                        className="h-[3px] rounded-full bg-ink/12"
-                        style={{ width: `${w}%` }}
-                      />
-                    ))}
+        {/* المشهد: عقد موقّع ومختوم، والجهاز موضوع فوقه. */}
+        <Rise delay={0.2}>
+          <div className="relative mx-auto w-full max-w-[30rem] pb-16 sm:pb-8">
+            <div className="-rotate-[6deg]">
+              <PaperSheet stacked={false}>
+                <div className="relative min-h-[22rem] sm:min-h-[25rem]">
+                  <p className="font-mono text-[0.55rem] text-ink/60 ltr-num">{hero.docId}</p>
+                  <h2 className="mt-2 text-base font-bold text-ink">{hero.docTitle}</h2>
+                  <PaperLines className="mt-6" widths={[100, 94, 88, 97, 72]} />
+                  <PaperLines className="mt-5" widths={[96, 82]} />
+
+                  <div className="mt-9 border-t border-dashed border-ink/25 pt-3">
+                    <span className="font-mono text-[0.5rem] text-ink/55 ltr-num">SIGNATURE</span>
+                    <SignatureMark color="var(--wq-ink)" strokeWidth={2.4} className="h-14" />
                   </div>
-                  <div className="mt-6 border-t border-dashed border-ink/25 pt-2">
-                    <SignatureMark
-                      color="var(--wq-ink)"
-                      strokeWidth={2.2}
-                      animate={false}
-                      className="h-12"
-                    />
-                  </div>
+
+                  <Seal className="absolute -bottom-3 end-0 size-24 -rotate-[10deg] sm:size-28" />
                 </div>
               </PaperSheet>
             </div>
 
-            <PhoneFrame label="شاشة التوقيع في تطبيق وقّع" className="relative translate-y-px">
-              <SignScreen />
-            </PhoneFrame>
+            <div className="absolute -bottom-2 -start-6 rotate-[3deg] sm:-start-12">
+              <PhoneFrame label="شاشة التوقيع في تطبيق وقّع" className="w-[180px] sm:w-[214px]">
+                <SignScreen />
+              </PhoneFrame>
+            </div>
           </div>
         </Rise>
       </div>
