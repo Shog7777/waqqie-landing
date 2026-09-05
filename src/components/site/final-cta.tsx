@@ -52,6 +52,7 @@ export function FinalCta() {
               strokeWidth={2.5}
               className="h-14 translate-y-1"
               animate={false}
+              drawOnReveal
             />
             <div className="border-b hairline-gold" />
             <p className="mt-4 text-sm font-semibold text-gold">{site.tagline}</p>

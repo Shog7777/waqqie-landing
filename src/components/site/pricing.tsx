@@ -28,8 +28,10 @@ export function Pricing() {
                 {plan.highlighted ? (
                   <span
                     aria-hidden
-                    className="absolute inset-x-0 top-0 h-[2px] bg-gold"
-                  />
+                    className="absolute inset-x-0 top-0 h-[2px] overflow-hidden bg-gold/45"
+                  >
+                    <span className="fx-travel absolute inset-y-0 w-1/3 bg-[linear-gradient(to_left,transparent,var(--wq-gold),transparent)]" />
+                  </span>
                 ) : null}
 
                 <div className="flex items-center justify-between">

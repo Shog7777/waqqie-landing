@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 export function Showcase() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [autoplay, setAutoplay] = useState(true);
 
   useEffect(() => {
     if (!api) return;
@@ -30,6 +31,17 @@ export function Showcase() {
       api.off("select", onSelect);
     };
   }, [api]);
+
+  /**
+   * الشرائح تتقدّم وحدها حتى يرى الزائر الشاشات الخمس دون أن يضغط شيئًا،
+   * وتتوقّف نهائيًا عند أول تفاعل منه فلا تنازعه، وكذلك مع «تقليل الحركة».
+   */
+  useEffect(() => {
+    if (!api || !autoplay) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => api.scrollNext(), 4200);
+    return () => clearInterval(id);
+  }, [api, autoplay]);
 
   return (
     <section id="showcase" className="relative overflow-hidden bg-abyss py-24 sm:py-32">
@@ -43,7 +55,11 @@ export function Showcase() {
         />
       </div>
 
-      <div className="relative mt-14">
+      <div
+        className="relative mt-14"
+        onPointerDown={() => setAutoplay(false)}
+        onKeyDownCapture={() => setAutoplay(false)}
+      >
         <Carousel
           setApi={setApi}
           opts={{ align: "center", loop: true, direction: "rtl" }}

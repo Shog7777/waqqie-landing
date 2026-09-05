@@ -27,12 +27,17 @@ export function SectionHeading({
   return (
     <div className={cn("flex flex-col", className)}>
       <Reveal>
-        <div
-          className={cn(
-            "flex items-baseline gap-4 border-b hairline-gold pb-3",
-            align === "center" && "justify-center",
-          )}
-        >
+        <div className={cn("relative pb-3", align === "center" && "text-center")}>
+          <span
+            aria-hidden
+            className="rule-draw absolute inset-x-0 bottom-0 h-px bg-[color-mix(in_oklab,var(--wq-gold)_38%,transparent)]"
+          />
+          <span
+            className={cn(
+              "flex items-baseline gap-4",
+              align === "center" && "justify-center",
+            )}
+          >
           <span
             aria-hidden
             className="font-mono text-[1.7rem] font-semibold leading-none text-gold ltr-num"
@@ -44,6 +49,7 @@ export function SectionHeading({
             style={{ letterSpacing: "0.28em" }}
           >
             {eyebrow}
+            </span>
           </span>
         </div>
       </Reveal>

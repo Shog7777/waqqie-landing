@@ -20,13 +20,19 @@ export function Surface({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl bg-card/85 shadow-[0_28px_70px_-34px_rgba(0,0,0,.85)]",
+        "group/surface relative overflow-hidden rounded-xl bg-card/85 shadow-[0_28px_70px_-34px_rgba(0,0,0,.85)]",
+        "transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        "hover:-translate-y-1.5 hover:shadow-[0_40px_80px_-30px_rgba(0,0,0,.9)]",
         className,
       )}
     >
       <span
         aria-hidden
-        className="absolute inset-x-8 top-0 h-px bg-[linear-gradient(to_left,transparent,color-mix(in_oklab,var(--wq-ivory)_22%,transparent),transparent)]"
+        className="absolute inset-x-8 top-0 h-px bg-[linear-gradient(to_left,transparent,color-mix(in_oklab,var(--wq-ivory)_22%,transparent),transparent)] transition-opacity duration-500 group-hover/surface:opacity-0"
+      />
+      <span
+        aria-hidden
+        className="absolute inset-x-4 top-0 h-px opacity-0 transition-opacity duration-500 group-hover/surface:opacity-100 bg-[linear-gradient(to_left,transparent,var(--wq-gold),transparent)]"
       />
       {glow ? (
         <span

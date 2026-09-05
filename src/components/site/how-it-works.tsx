@@ -17,7 +17,8 @@ export function HowItWorks() {
               <Surface className="flex h-full flex-col p-7">
                 <span
                   aria-hidden
-                  className="font-mono text-[1.7rem] font-semibold leading-none text-gold ltr-num"
+                  className="fx-step font-mono text-[1.7rem] font-semibold leading-none text-gold ltr-num"
+                  style={{ animationDelay: `${i * 1.6}s` }}
                 >
                   {step.n}
                 </span>

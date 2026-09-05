@@ -241,6 +241,23 @@
     opacity: 1;
   }
 }
+/* نبضة تسري في أرقام الخطوات بالترتيب ٠١ ← ٠٤ */
+@keyframes stepGlow {
+  0%,
+  3% {
+    text-shadow: none;
+    transform: scale(1);
+  }
+  9% {
+    text-shadow: 0 0 26px color-mix(in oklab, var(--wq-gold) 85%, transparent);
+    transform: scale(1.12);
+  }
+  24%,
+  100% {
+    text-shadow: none;
+    transform: scale(1);
+  }
+}
 @keyframes travel {
   0% {
     transform: translateX(-120%);
@@ -396,6 +413,32 @@
     animation-name: seqSent;
   }
 
+  /* نبضة الخطوات: كل رقم يأخذ تأخيره فتسري النبضة بالترتيب */
+  .fx-step {
+    display: inline-block;
+    animation: stepGlow 6.4s ease-in-out infinite;
+  }
+
+  /* الخط الذهبي في ترويسة القسم يُرسم عند وصوله للشاشة */
+  .rule-draw {
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+  }
+  .reveal.is-visible .rule-draw {
+    transform: scaleX(1);
+  }
+
+  /* توقيع يُرسم عند وصوله للشاشة لا عند تحميل الصفحة */
+  .sig-reveal path {
+    stroke-dasharray: 560;
+    stroke-dashoffset: 560;
+  }
+  .reveal.is-visible .sig-reveal path {
+    transition: stroke-dashoffset 2.4s ease-out 0.25s;
+    stroke-dashoffset: 0;
+  }
+
   /* شعاع يمرّ على الشريط الذهبي */
   .fx-travel {
     animation: travel 5.5s linear infinite;
@@ -519,6 +562,7 @@
 /* احترام تفضيل تقليل الحركة */
 @media (prefers-reduced-motion: reduce) {
   .seq,
+  .fx-step,
   .fx-drift,
   .fx-travel,
   .fx-pulse,
@@ -532,6 +576,16 @@
   .fx-shimmer {
     color: var(--wq-gold);
     background: none;
+  }
+  .rule-draw,
+  .reveal.is-visible .rule-draw {
+    transform: none;
+    transition: none;
+  }
+  .sig-reveal path,
+  .reveal.is-visible .sig-reveal path {
+    stroke-dashoffset: 0;
+    transition: none;
   }
   .reveal {
     opacity: 1 !important;
