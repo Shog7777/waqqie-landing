@@ -117,6 +117,73 @@
     transform: translateY(-10px);
   }
 }
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-5%, 4%, 0) scale(1.08);
+  }
+}
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+@keyframes sweep {
+  0% {
+    transform: translateX(-130%) skewX(-14deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.45;
+  }
+  55%,
+  100% {
+    transform: translateX(240%) skewX(-14deg);
+    opacity: 0;
+  }
+}
+@keyframes lineUp {
+  from {
+    clip-path: inset(0 0 105% 0);
+    transform: translateY(16px);
+  }
+  to {
+    clip-path: inset(0 0 -5% 0);
+    transform: none;
+  }
+}
+@keyframes gridGrow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-12px) rotate(var(--tilt, 0deg));
+  }
+}
+@keyframes shimmerText {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
 @keyframes rise {
   from {
     opacity: 0;
@@ -166,6 +233,50 @@
 }
 
 @layer utilities {
+  /* ===== حركة المعاينة ===== */
+  .fx-drift {
+    animation: drift 16s ease-in-out infinite;
+  }
+  .fx-pulse {
+    animation: glowPulse 7s ease-in-out infinite;
+  }
+  .fx-sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--wq-ivory) 26%, transparent),
+      transparent
+    );
+    animation: sweep 6.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .fx-line {
+    animation: lineUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .fx-grid > span {
+    transform-origin: top;
+    animation: gridGrow 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .fx-float {
+    animation: floatSoft 8s ease-in-out infinite;
+  }
+  .fx-shimmer {
+    background: linear-gradient(
+      100deg,
+      var(--wq-gold) 0%,
+      #f4dcae 42%,
+      var(--wq-gold) 68%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmerText 6s linear infinite;
+  }
+
   /* ظهور يبدأ مع أول رسم للصفحة — لا ينتظر JS، فلا يؤخّر LCP */
   .rise {
     animation: rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -239,6 +350,19 @@
 
 /* احترام تفضيل تقليل الحركة */
 @media (prefers-reduced-motion: reduce) {
+  .fx-drift,
+  .fx-pulse,
+  .fx-float,
+  .fx-shimmer,
+  .fx-line,
+  .fx-grid > span,
+  .fx-sweep::after {
+    animation: none !important;
+  }
+  .fx-shimmer {
+    color: var(--wq-gold);
+    background: none;
+  }
   .reveal {
     opacity: 1 !important;
     transform: none !important;
